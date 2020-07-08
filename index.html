@@ -9,43 +9,47 @@
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
     crossorigin="anonymous">
   <!-- End Import Bootstrap-->
+  <link rel="stylesheet" href="style.css">
   <script src="app.js"></script>
   <title>Legislature Simulator</title>
 </head>
-<body>
-  <!-- Shows detailed information about legislators or parties -->
-  <aside id="details-sidebar">
-    <!-- Legislator info -->
-    <div id="legislator-view">
-      <p id="legislator-name"></p>
-      <p id="legislator-party"></p>
-      <p>Economic: <span id="legislator-x"></span> <span id="legislator-y"></span></p>
-      <figure>
-        <figcaption>Bills introduced</figcaption>
-        <ul id="bills-introduced"></ul>
-      </figure>
-      <figure>
-        <figcaption>Voting history</figcaption>
-        <ul id="vote-history"></ul>
-      </figure>
-    </div>
-    <!-- Party info -->
-    <div id="party-view">
-      <p id="party-name"></p>
-      <p>Economic: <span id="party-x"></span> <span id="party-y"></span></p>
-    </div>
-  </aside>
+<body class="container-fluid">
+  <div class="row" id="container-row">
+    <!-- Shows detailed information about legislators or parties -->
+    <aside id="details-sidebar" class="col-md-2 d-md-block sidebar">
+      <!-- Legislator info -->
+      <div id="legislator-view">
+        <p id="legislator-name"></p>
+        <p id="legislator-party"></p>
+        <p>Economic: <span id="legislator-x"></span> <span id="legislator-y"></span></p>
+        <figure>
+          <figcaption>Bills introduced</figcaption>
+          <ul id="bills-introduced"></ul>
+        </figure>
+        <figure>
+          <figcaption>Voting history</figcaption>
+          <ul id="vote-history"></ul>
+        </figure>
+      </div>
+      <!-- Party info -->
+      <div id="party-view">
+        <p id="party-name"></p>
+        <p>Economic: <span id="party-x"></span> Social: <span id="party-y"></span></p>
+      </div>
+    </aside>
 
-  <!-- Shows the legislator diagram and basic info -->
-  <main>
-    <h1>Legislature of Ruritania</h1>
-    <div id="chart"></div>
-    <div id="party-list"></div>
-  </main>
+    <!-- Shows the legislator diagram and basic info -->
+    <main class="col-md-8 d-md-block ml-sm-auto">
+      <h1>Legislature of Ruritania</h1>
+      <div id="chart"></div>
+      <div id="party-list"></div>
+    </main>
 
-  <!-- Sidebar that displays a log of actions made (new bills and vote results) -->
-  <aside id="log-sidebar">
-    <ul id="log"></ul>
-  </aside>
+    <!-- Sidebar that displays a log of actions made (new bills and vote results) -->
+    <aside id="log-sidebar" class="col-md-2 d-md-block sidebar">
+      <h2>Log</h2>
+      <ul id="log"></ul>
+    </aside>
+  </div>
 </body>
 </html>
