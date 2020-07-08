@@ -254,21 +254,23 @@
      */
     holdSession() {
       let sponsor = randomSelect(this.legislators);
-      let billIssue = randomSelect(sponsor.issues);
-      let billCompass = sponsor.compass.add(randomCompass(5));
-      let votes = {};
+      let issue = randomSelect(sponsor.issues);
+      let compass = sponsor.compass.add(randomCompass(5));
+      let votes = new Map();
       let notAbstain = 0;
       let aye = 0;
       let nay = 0;
       for (let legislator of this.legislators) {
-        let vote = legislator === sponsor ? "AYE" : legislator.decide(billIssue, billCompass);
-        votes[legislator] = vote;
+        let vote = legislator === sponsor ? "AYE" : legislator.decide(issue, compass);
+        votes.set(legislator, vote);
         if (vote !== "ABSTAIN") notAbstain++;
         if (vote === "AYE") aye++;
         if (vote === "NAY") nay++;
       }
       let passed = aye / notAbstain > 0.5;
       return {
+        sponsor: sponsor,
+        issue: issue,
         passed: passed,
         aye: aye,
         nay: nay,
@@ -291,7 +293,32 @@
       1
     );
     updateChart(currentLegislature);
-    currentLegislature.holdSession();
+    showVotes(currentLegislature, currentLegislature.holdSession());
+  }
+
+  /**
+   * Show the results of voting on a bill
+   * @param {Object} legislature the legislature that voted
+   * @param {Object} voteResults the results of a bill
+   */
+  function showVotes(legislature, voteResults) {
+    let {sponsor, issue, passed, aye, nay, abstain, votes} = voteResults;
+    log(`${sponsor.name} (${sponsor.party.name}) is introducing a new bill addressing ${issue}`);
+    let chart = document.getElementById("chart");
+    chart.innerHTML = "";
+    let colors = {
+      "AYE": "green",
+      "NAY": "red",
+      "ABSTAIN": "gray"
+    };
+    for (let legislator of legislature.legislators) {
+      let square = document.createElement("div");
+      square.classList.add("chart-square");
+      square.style.backgroundColor = colors[votes.get(legislator)];
+      square.addEventListener("click", () => showLegislatorInfo(legislator));
+      chart.appendChild(square);
+    }
+    log(`The bill ${passed ? "PASSED" : "FAILED"} with ${aye} AYE, ${nay} NAY, and ${abstain} abstaining.`);
   }
 
   /**
@@ -300,6 +327,7 @@
    */
   function updateChart(legislature) {
     let chart = document.getElementById("chart");
+    chart.innerHTML = "";
     for (let legislator of legislature.legislators) {
       let square = document.createElement("div");
       square.classList.add("chart-square");
