@@ -33,6 +33,13 @@
     return array[index];
   }
 
+  /**
+   * Generates a random political compass point where each axis can be between -10 and 10
+   * @returns random political compass point
+   */
+  function randomCompass() {
+    return new Point(Math.random() * 20 - 10, Math.random() * 20 - 10);
+  }
 
   /**
    * Represents a point on a political compass
@@ -156,7 +163,7 @@
         parties.push(new Party(
           names[i % names.length] + " Party",
           colors[i % colors.length],
-          new Point(Math.random() * 10, Math.random() * 10),
+          randomCompass(),
           partyIssues
           ));
       }
@@ -172,7 +179,7 @@
     generateLegislators(names, numLegislators) {
       let legislators = [];
       for (let i = 0; i < numLegislators; i++) {
-        let compass = new Point(Math.random() * 10, Math.random() * 10);
+        let compass = randomCompass();
         let party = this.parties.reduce( (party1, party2) => { // choose party with closest compass
           return compass.distanceTo(party1.compass) < compass.distanceTo(party2.compass) ? party1 : party2;
         });
