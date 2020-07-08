@@ -34,11 +34,16 @@
   }
 
   /**
-   * Generates a random political compass point where each axis can be between -10 and 10
+   * Generates a random political compass point where each axis can be between -distance and
+   * distance.
+   * @param distance max distance on ONE axis the point can be generated to
    * @returns random political compass point
    */
-  function randomCompass() {
-    return new Point(Math.random() * 20 - 10, Math.random() * 20 - 10);
+  function randomCompass(distance) {
+    return new Point(
+      Math.random() * distance * 2 - distance,
+      Math.random() * distance * 2 - distance
+      );
   }
 
   /**
@@ -62,6 +67,27 @@
     constructor(x, y) {
       this.x = x;
       this.y = y;
+    }
+
+    /**
+     * Get result of vector adding this point to another point
+     * Value on each axis cannot go below -10 or above 10
+     * @param {Point} point 
+     */
+    add(point) {
+      let x = this.x + point.x; // I suspect there's a cleaner way to do this...
+      if (x < -10) {
+        x = -10;
+      } else if (x > 10) {
+        x = 10;
+      } 
+      let y = this.y + point.y;
+      if (y < -10) {
+        y = -10;
+      } else if (y > 10) {
+        y = 10;
+      } 
+      return new Point(x, y);
     }
 
     /**
@@ -129,6 +155,24 @@
       this.billsIntroduced = [];
       this.voteHistory = [];
     }
+
+    /**
+     * Decides how the legislator will vote on a bill
+     * @param {String}  billIssue   the issue the bill addresses
+     * @param {Point}   billCompass the compass of the bill
+     * @returns the legislator's decision
+     */
+    decide(billIssue, billCompass) {
+      if (!this.issues.includes(billIssue)) {
+        return "ABSTAIN";
+      } else {
+        if (this.compass.distanceTo(billCompass) > 5 + (Math.random() * 5)) {
+          return "NAY";
+        } else {
+          return "AYE";
+        }
+      }
+    }
   }
 
   /**
@@ -153,6 +197,7 @@
       this.issueSelections = issueSelections;
       this.parties = this.generateParties(partyNames, colors, numParties);
       this.legislators = this.generateLegislators(legislatorNames, size, issueSelections);
+      log(`Created a legislature with ${size} members and ${numParties} available parties to join.`);
     }
 
     /**
@@ -172,7 +217,7 @@
         parties.push(new Party(
           names[i % names.length] + " Party",
           colors[i % colors.length],
-          randomCompass(),
+          randomCompass(10),
           partyIssues
           ));
       }
@@ -188,7 +233,7 @@
     generateLegislators(names, numLegislators) {
       let legislators = [];
       for (let i = 0; i < numLegislators; i++) {
-        let compass = randomCompass();
+        let compass = randomCompass(10);
         let party = this.parties.reduce( (party1, party2) => { // choose party with closest compass
           return compass.distanceTo(party1.compass) < compass.distanceTo(party2.compass) ? party1 : party2;
         });
@@ -201,6 +246,24 @@
       }
       return legislators;
     }
+
+    /**
+     * Hold a legislature session where someone random sponsors a bill and everyone votes
+     */
+    holdSession() {
+      let sponsor = randomSelect(this.legislators);
+      let billIssue = randomSelect(sponsor.issues);
+      let billCompass = sponsor.compass.add(randomCompass(5));
+      log(`${sponsor.name} (${sponsor.party.name}) is introducing a new bill which addresses ${billIssue}. The bill is ${billCompass.x}, ${billCompass.y}`);
+      let votes = {};
+      let tally;
+      for (let legislator of this.legislators) {
+        let vote = legislator === sponsor ? "AYE" : legislator.decide(billIssue, billCompass);
+        votes[legislator] = vote;
+        tally += vote;
+        log(`${legislator.name} voted ${vote}`)
+      }
+    }
   }
 
   window.addEventListener("load", init);
@@ -211,11 +274,12 @@
       ["Asteroid", "Billiards", "Crevice"],
       ["red", "green", "blue"],
       ["Healthcare", "Military", "Housing"],
-      10,
+      30,
       3,
       1
     );
     updateChart(currentLegislature);
+    currentLegislature.holdSession();
   }
 
   /**
@@ -239,7 +303,6 @@
    * @param {Legislator} legislator legislator to show info about
    */
   function showLegislatorInfo(legislator) {
-    console.log(legislator);
     document.getElementById("legislator-name").textContent = legislator.name;
     document.getElementById("legislator-party").textContent = legislator.party.name;
     document.getElementById("legislator-party").style.color = legislator.party.color;
