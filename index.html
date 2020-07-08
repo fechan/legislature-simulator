@@ -16,37 +16,43 @@
 <body class="container-fluid">
   <div class="row" id="container-row">
     <!-- Shows detailed information about legislators or parties -->
-    <aside id="details-sidebar" class="col-md-2 d-md-block sidebar">
-      <!-- Legislator info -->
-      <div id="legislator-view">
-        <p id="legislator-name"></p>
-        <p id="legislator-party"></p>
-        <p>Economic: <span id="legislator-x"></span> <span id="legislator-y"></span></p>
-        <figure>
-          <figcaption>Bills introduced</figcaption>
-          <ul id="bills-introduced"></ul>
-        </figure>
-        <figure>
-          <figcaption>Voting history</figcaption>
-          <ul id="vote-history"></ul>
-        </figure>
-      </div>
-      <!-- Party info -->
-      <div id="party-view">
-        <p id="party-name"></p>
-        <p>Economic: <span id="party-x"></span> Social: <span id="party-y"></span></p>
+    <aside id="details-sidebar" class="col-md-3 d-md-block sidebar">
+      <ul class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#legislator-view">Legislator</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#party-view">Party</a></li>
+      </ul>
+      <div class="tab-content">
+        <!-- Legislator info -->
+        <div id="legislator-view" class="tab-pane active">
+          <p id="legislator-name"></p>
+          <p id="legislator-party"></p>
+          <p>Economic: <span id="legislator-x"></span> Social: <span id="legislator-y"></span></p>
+          <figure>
+            <figcaption>Bills introduced</figcaption>
+            <ul id="bills-introduced"></ul>
+          </figure>
+          <figure>
+            <figcaption>Voting history</figcaption>
+            <ul id="vote-history"></ul>
+          </figure>
+        </div>
+        <!-- Party info -->
+        <div id="party-view" class="tab-pane">
+          <p id="party-name"></p>
+          <p>Economic: <span id="party-x"></span> Social: <span id="party-y"></span></p>
+        </div>
       </div>
     </aside>
 
     <!-- Shows the legislator diagram and basic info -->
-    <main class="col-md-8 ml-sm-auto d-flex align-items-center flex-column">
+    <main class="col-md-6 ml-sm-auto d-flex align-items-center flex-column">
       <h1>Legislature of Ruritania</h1>
       <div id="chart"></div>
       <div id="party-list"></div>
     </main>
 
     <!-- Sidebar that displays a log of actions made (new bills and vote results) -->
-    <aside id="log-sidebar" class="col-md-2 d-md-block sidebar">
+    <aside id="log-sidebar" class="col-md-3 d-md-block sidebar">
       <h2>Log</h2>
       <ul id="log"></ul>
     </aside>
