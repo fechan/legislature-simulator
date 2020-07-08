@@ -26,6 +26,19 @@
       this.x = x;
       this.y = y;
     }
+
+    /**
+     * Get the distance of this point to another point
+     * @param {Point} point the point to find the distance to
+     * @returns the distance of this point to the provided point
+     */
+    distanceTo(point) {
+      let x1 = this.x;
+      let y1 = this.y;
+      let x2 = point.x;
+      let y2 = point.y;
+      return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    }
   }
 
   /**
@@ -103,6 +116,7 @@
      * @param {Array}   partyNames  all party names possible to choose from
      * @param {Array}   colors      all party colors possible to choose from
      * @param {Number}  numParties  number of parties in the legislature
+     * @return {Array} a list of parties in this legislature
      */
     generateParties(partyNames, colors, numParties) {
       let parties = [];
@@ -119,10 +133,17 @@
      * Randomly generates new legislators and assigns them to parties
      * @param {Array}   parties         all parties possible for legislators to be a part of
      * @param {Array}   legislatorNames all legislator names possible to choose from
-     * @param {Number}  numLegislators  number of legislators in the legislature  
+     * @param {Number}  numLegislators  number of legislators in the legislature
+     * @return {Array} a list of legislators in this legislature
      */
     generateLegislators(parties, legislatorNames, numLegislators) {
-      
+      let legislators = [];
+      let names = [...legislatorNames];
+      for (let i = 0; i < numLegislators; i++) {
+        let compass = new Point(Math.random() * 10, Math.random() * 10);
+        let party = compass.distanceTo
+        legislators.push(new Legislator(randomPop(names)))
+      }
     }
   }
 
