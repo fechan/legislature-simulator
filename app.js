@@ -259,4 +259,14 @@
     document.getElementById("party-x").textContent = round(party.compass.x);
     document.getElementById("party-y").textContent = round(party.compass.y);
   }
+
+  /**
+   * Logs text in the log sidebar
+   * @param {String} text text to log
+   */
+  function log(text) {
+    let entry = document.createElement("li");
+    entry.textContent = text;
+    document.getElementById("log").appendChild(entry);
+  }
 })();
