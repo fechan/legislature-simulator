@@ -149,10 +149,15 @@
     generateParties(names, colors, numParties) {
       let parties = [];
       for (let i = 0; i < numParties; i++) {
+        let partyIssues = [];
+        for (let issueNo = 0; issueNo < this.issueSelections; issueNo++) {
+          partyIssues.push(randomSelect(this.issues));
+        }
         parties.push(new Party(
           names[i % names.length] + " Party",
           colors[i % colors.length],
-          new Point(1, 1) //TODO: generate party issues
+          new Point(Math.random() * 10, Math.random() * 10),
+          partyIssues
           ));
       }
       return parties;
@@ -178,7 +183,6 @@
         myIssues = myIssues.concat(party.issues);
         legislators.push(new Legislator(names[i % names.length], party, compass, myIssues));
       }
-      console.table(legislators);
       return legislators;
     }
   }
