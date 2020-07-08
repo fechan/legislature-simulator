@@ -1,53 +1,140 @@
 "use strict";
 (function(){
   /**
-   * Represents a legislature along with its legislators and parties
+   * UTILITY FUNCTIONS
    */
-  class Legislature {
+
+   /**
+    * Pop a random element from an array
+    * @param {Array} array array to pop from
+    */
+  function randomPop(array) {
+    let index = Math.floor(Math.random() * array.length);
+    return array.splice(index, 1)[0];
+  }
+
+  /**
+   * Represents a point on a political compass
+   */
+  class Point {
     /**
-     * Creates a new legislature
-     * @param {Legislator}  legislators legislators in this legislature
-     * @param {Party}       parties     parties in this legislature
+     * Creates a new point
+     * @param {Number} x x coordinate
+     * @param {Number} y y coordinate
      */
-    constructor(legislators, parties) {
-      this.legislators = legislators;
-      this.parties = parties;
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
     }
   }
 
   /**
+   * "Abstract" superclass of Party and Legislator, which both have names, compass, and issues
+   */
+  class PoliticalActor {
+    /**
+     * Creates a new PoliticalActor
+     * @param {String}  name    name
+     * @param {Point}   compass political compass
+     * @param {Array}   issues  issues this actor identifies with
+     */
+    constructor(name, compass, issues) {
+      this.name = name;
+      this.compass = compass;
+      this.issues = issues;
+    }
+  } 
+
+  /**
    * Represents a political party
    */
-  class Party {
+  class Party extends PoliticalActor {
     /**
      * Creates a new party
      * @param {String}  name    party name
      * @param {String}  color   display color
      * @param {Point}   compass political compass
+     * @param {Array}   issues  issues this party identifies with
      */
-    constructor(name, color, compass) {
-      this.name = name;
+    constructor(name, color, compass, issues) {
+      super(name, compass, issues);
       this.color = color;
-      this.compass = compass;
     }
   }
 
   /**
    * Represents a legislator
    */
-  class Legislator {
+  class Legislator extends PoliticalActor {
     /**
      * Creates a new legislator
      * @param {String}  name    legislator name
-     * @param {String}  color   display color
+     * @param {Party}   party   party this legislator is a member of
      * @param {Point}   compass political compass
+     * @param {Array}   issues  issues this legislator identifies with
      */
-    constructor(name, color, compass) {
-      this.name = name;
-      this.color = color;
-      this.compass = compass;
+    constructor(name, party, compass, issues) {
+      super(name, compass, issues);
       this.billsIntroduced = [];
       this.voteHistory = [];
     }
+  }
+
+  /**
+   * Represents a legislature along with its legislators and parties
+   */
+  class Legislature {
+    /**
+     * Creates a new legislature
+     * @param {Array}   legislatorNames all legislator names possible to choose from
+     * @param {Array}   partyNames      all party names possible to choose from
+     * @param {Array}   colors          all party colors possible to choose from
+     * @param {Array}   issues          all issues possible to identify with
+     * @param {Number}  size            number of legislators in the legislature
+     * @param {Number}  numParties      number of parties in the legislature
+     */
+    constructor(legislatorNames, partyNames, colors, size, numParties) {
+      this.parties = this.generateParties(partyNames, colors, numParties);
+      //this.legislators = this.generateLegislators(legislatorNames, size);
+    }
+
+    /**
+     * Randomly generates new parties
+     * @param {Array}   partyNames  all party names possible to choose from
+     * @param {Array}   colors      all party colors possible to choose from
+     * @param {Number}  numParties  number of parties in the legislature
+     */
+    generateParties(partyNames, colors, numParties) {
+      let parties = [];
+      let names = [...partyNames]; // we don't want to alter the master lists of names and colors
+      let palette = [...colors];
+      for (let i = 0; i < numParties; i++) {
+        parties.push(new Party(randomPop(names) + " Party", randomPop(palette), new Point(1, 1)));
+      }
+      console.log(parties);
+      return parties;
+    }
+
+    /**
+     * Randomly generates new legislators and assigns them to parties
+     * @param {Array}   parties         all parties possible for legislators to be a part of
+     * @param {Array}   legislatorNames all legislator names possible to choose from
+     * @param {Number}  numLegislators  number of legislators in the legislature  
+     */
+    generateLegislators(parties, legislatorNames, numLegislators) {
+      
+    }
+  }
+
+  window.addEventListener("load", init);
+
+  function init() {
+    let currentLegislature = new Legislature(
+      ["Alice", "Bob", "Carol"],
+      ["Asteroid", "Billiards", "Crevice"],
+      ["red", "green", "blue"],
+      3,
+      3
+    );
   }
 })();
