@@ -42,6 +42,15 @@
   }
 
   /**
+   * Round a number to 2 decimal places
+   * @param {Number} number to round
+   * @returns rounded number
+   */
+  function round(num) {
+    return Math.round(num * 100) / 100
+  }
+
+  /**
    * Represents a point on a political compass
    */
   class Point {
@@ -219,7 +228,35 @@
       let square = document.createElement("div");
       square.classList.add("chart-square");
       square.style.backgroundColor = legislator.party.color;
+      square.addEventListener("click", () => showLegislatorInfo(legislator));
       chart.appendChild(square);
     }
+  }
+
+  /**
+   * Shows the legislator's info in the sidebar
+   * Also updates the party tab with the legislator's party info
+   * @param {Legislator} legislator legislator to show info about
+   */
+  function showLegislatorInfo(legislator) {
+    console.log(legislator);
+    document.getElementById("legislator-name").textContent = legislator.name;
+    document.getElementById("legislator-party").textContent = legislator.party.name;
+    document.getElementById("legislator-party").style.color = legislator.party.color;
+    document.getElementById("legislator-x").textContent = round(legislator.compass.x);
+    document.getElementById("legislator-y").textContent = round(legislator.compass.y);
+
+    showPartyInfo(legislator.party);
+  }
+
+  /**
+   * Shows the party's info in the sidebar
+   * @param {Party} party party to show info about
+   */
+  function showPartyInfo(party) {
+    document.getElementById("party-name").textContent = party.name;
+    document.getElementById("party-name").style.color = party.color;
+    document.getElementById("party-x").textContent = round(party.compass.x);
+    document.getElementById("party-y").textContent = round(party.compass.y);
   }
 })();

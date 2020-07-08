@@ -10,3 +10,8 @@
   height: 2rem;
   margin: 0.5rem;
 }
+
+.chart-square:hover {
+  box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+  cursor: pointer;
+}
