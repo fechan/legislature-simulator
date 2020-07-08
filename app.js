@@ -195,9 +195,24 @@
       ["Asteroid", "Billiards", "Crevice"],
       ["red", "green", "blue"],
       ["Healthcare", "Military", "Housing"],
-      3,
+      10,
       3,
       1
     );
+    updateChart(currentLegislature);
+  }
+
+  /**
+   * Updates the legislature chart with the legislature info
+   * @param {Legislature} legislature the legislature to take info from
+   */
+  function updateChart(legislature) {
+    let chart = document.getElementById("chart");
+    for (let legislator of legislature.legislators) {
+      let square = document.createElement("div");
+      square.classList.add("chart-square");
+      square.style.backgroundColor = legislator.party.color;
+      chart.appendChild(square);
+    }
   }
 })();
