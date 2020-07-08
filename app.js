@@ -109,6 +109,7 @@
      */
     constructor(name, party, compass, issues) {
       super(name, compass, issues);
+      this.party = party;
       this.billsIntroduced = [];
       this.voteHistory = [];
     }
