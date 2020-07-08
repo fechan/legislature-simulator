@@ -178,6 +178,7 @@
         legislators.push(new Legislator(names[i % names.length], party, compass, myIssues));
       }
       console.table(legislators);
+      return legislators;
     }
   }
 
