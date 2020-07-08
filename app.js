@@ -5,13 +5,34 @@
    */
 
    /**
-    * Pop a random element from an array
-    * @param {Array} array array to pop from
+    * Randomly shuffles an array
+    * Originally from https://stackoverflow.com/a/2450976
+    * @param {Array} array array to shuffle
+    * @reutns shuffled array
     */
-  function randomPop(array) {
-    let index = Math.floor(Math.random() * array.length);
-    return array.splice(index, 1)[0];
+  function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+    return array;
   }
+
+  /**
+   * Randomly select an element from an array
+   * Does not affect the original array
+   * @param {Array} array array to select from
+   * @returns randomly selected array element
+   */
+  function randomSelect(array) {
+    let index = Math.floor(Math.random() * array.length);
+    return array[index];
+  }
+
 
   /**
    * Represents a point on a political compass
@@ -54,7 +75,7 @@
     constructor(name, compass, issues) {
       this.name = name;
       this.compass = compass;
-      this.issues = issues;
+      this.issues = [...new Set(issues)]; // removes dupes
     }
   } 
 
@@ -105,45 +126,58 @@
      * @param {Array}   issues          all issues possible to identify with
      * @param {Number}  size            number of legislators in the legislature
      * @param {Number}  numParties      number of parties in the legislature
+     * @param {Number}  issueSelections number of times a legislator/party should select issues
      */
-    constructor(legislatorNames, partyNames, colors, size, numParties) {
+    constructor(legislatorNames, partyNames, colors, issues, size, numParties, issueSelections) {
+      legislatorNames = shuffle(legislatorNames);
+      partyNames = shuffle(partyNames);
+      colors = shuffle(colors);
+      this.issues = issues;
+      this.issueSelections = issueSelections;
       this.parties = this.generateParties(partyNames, colors, numParties);
-      //this.legislators = this.generateLegislators(legislatorNames, size);
+      this.legislators = this.generateLegislators(legislatorNames, size, issueSelections);
     }
 
     /**
      * Randomly generates new parties
-     * @param {Array}   partyNames  all party names possible to choose from
+     * @param {Array}   names       all party names possible to choose from
      * @param {Array}   colors      all party colors possible to choose from
      * @param {Number}  numParties  number of parties in the legislature
      * @return {Array} a list of parties in this legislature
      */
-    generateParties(partyNames, colors, numParties) {
+    generateParties(names, colors, numParties) {
       let parties = [];
-      let names = [...partyNames]; // we don't want to alter the master lists of names and colors
-      let palette = [...colors];
       for (let i = 0; i < numParties; i++) {
-        parties.push(new Party(randomPop(names) + " Party", randomPop(palette), new Point(1, 1)));
+        parties.push(new Party(
+          names[i % names.length] + " Party",
+          colors[i % colors.length],
+          new Point(1, 1) //TODO: generate party issues
+          ));
       }
-      console.log(parties);
       return parties;
     }
 
     /**
      * Randomly generates new legislators and assigns them to parties
-     * @param {Array}   parties         all parties possible for legislators to be a part of
-     * @param {Array}   legislatorNames all legislator names possible to choose from
+     * @param {Array}   names           all legislator names possible to choose from
      * @param {Number}  numLegislators  number of legislators in the legislature
      * @return {Array} a list of legislators in this legislature
      */
-    generateLegislators(parties, legislatorNames, numLegislators) {
+    generateLegislators(names, numLegislators) {
       let legislators = [];
-      let names = [...legislatorNames];
       for (let i = 0; i < numLegislators; i++) {
         let compass = new Point(Math.random() * 10, Math.random() * 10);
-        let party = compass.distanceTo
-        legislators.push(new Legislator(randomPop(names)))
+        let party = this.parties.reduce( (party1, party2) => { // choose party with closest compass
+          return compass.distanceTo(party1.compass) < compass.distanceTo(party2.compass) ? party1 : party2;
+        });
+        let myIssues = [];
+        for (let issueNo = 0; issueNo < this.issueSelections; issueNo++) {
+          myIssues.push(randomSelect(this.issues));
+        }
+        myIssues = myIssues.concat(party.issues);
+        legislators.push(new Legislator(names[i % names.length], party, compass, myIssues));
       }
+      console.table(legislators);
     }
   }
 
@@ -154,8 +188,10 @@
       ["Alice", "Bob", "Carol"],
       ["Asteroid", "Billiards", "Crevice"],
       ["red", "green", "blue"],
+      ["Healthcare", "Military", "Housing"],
       3,
-      3
+      3,
+      1
     );
   }
 })();
