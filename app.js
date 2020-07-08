@@ -193,6 +193,7 @@
       legislatorNames = shuffle(legislatorNames);
       partyNames = shuffle(partyNames);
       colors = shuffle(colors);
+      this.size = size;
       this.issues = issues;
       this.issueSelections = issueSelections;
       this.parties = this.generateParties(partyNames, colors, numParties);
@@ -249,19 +250,30 @@
 
     /**
      * Hold a legislature session where someone random sponsors a bill and everyone votes
+     * @returns an object representing the bill's fate
      */
     holdSession() {
       let sponsor = randomSelect(this.legislators);
       let billIssue = randomSelect(sponsor.issues);
       let billCompass = sponsor.compass.add(randomCompass(5));
-      log(`${sponsor.name} (${sponsor.party.name}) is introducing a new bill which addresses ${billIssue}. The bill is ${billCompass.x}, ${billCompass.y}`);
       let votes = {};
-      let tally;
+      let notAbstain = 0;
+      let aye = 0;
+      let nay = 0;
       for (let legislator of this.legislators) {
         let vote = legislator === sponsor ? "AYE" : legislator.decide(billIssue, billCompass);
         votes[legislator] = vote;
-        tally += vote;
-        log(`${legislator.name} voted ${vote}`)
+        if (vote !== "ABSTAIN") notAbstain++;
+        if (vote === "AYE") aye++;
+        if (vote === "NAY") nay++;
+      }
+      let passed = aye / notAbstain > 0.5;
+      return {
+        passed: passed,
+        aye: aye,
+        nay: nay,
+        abstain: this.size - notAbstain,
+        votes: votes,
       }
     }
   }
