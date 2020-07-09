@@ -1,3 +1,8 @@
+import adjectives from "./adjectives.mjs";
+import verbs from "./verbs.mjs";
+import nouns from "./nouns.mjs";
+import names from "./names.mjs";
+
 "use strict";
 (function(){
   /**
@@ -215,8 +220,9 @@
         for (let issueNo = 0; issueNo < this.issueSelections; issueNo++) {
           partyIssues.push(randomSelect(this.issues));
         }
+        let name = names[i % names.length];
         parties.push(new Party(
-          names[i % names.length] + " Party",
+          name.charAt(0).toUpperCase() + name.slice(1) + " Party", // capitalizes the name
           colors[i % colors.length],
           randomCompass(10),
           partyIssues
@@ -284,10 +290,10 @@
 
   function init() {
     let currentLegislature = new Legislature(
-      ["Alice", "Bob", "Carol"],
-      ["Asteroid", "Billiards", "Crevice"],
+      names,
+      nouns,
       ["red", "green", "blue"],
-      ["Healthcare", "Military", "Housing"],
+      nouns,
       30,
       3,
       1
@@ -303,7 +309,7 @@
    */
   function showVotes(legislature, voteResults) {
     let {sponsor, issue, passed, aye, nay, abstain, votes} = voteResults;
-    log(`${sponsor.name} (${sponsor.party.name}) is introducing a new bill addressing ${issue}`);
+    log(`${sponsor.name} (${sponsor.party.name}) is introducing a new bill about the following topic: ${issue}`);
     let chart = document.getElementById("chart");
     chart.innerHTML = "";
     let colors = {
