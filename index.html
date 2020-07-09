@@ -27,15 +27,24 @@
             <span id="legislator-name">Select a legislator to view their details.</span>
             (<span id="legislator-party"></span>)
           </p>
-          <p>Economic: <span id="legislator-x">?</span> Social: <span id="legislator-y">?</span></p>
-          <figure>
-            <figcaption>Bills introduced</figcaption>
+          <details open>
+            <summary>Issues I care about</summary>
+            <ul id="legislator-issues"></ul>
+          </details>
+          <details open>
+            <summary>Political compass</summary>
+            <p>
+              Economic: <span id="legislator-x">?</span> Social: <span id="legislator-y">?</span>
+            </p>
+          </details>
+          <details open>
+            <summary>Bills introduced</summary>
             <ul id="bills-introduced"></ul>
-          </figure>
-          <figure>
-            <figcaption>Voting history</figcaption>
+          </details>
+          <details open>
+            <summary>Voting history</summary>
             <ul id="vote-history"></ul>
-          </figure>
+          </details>
         </div>
         <!-- Party info -->
         <div id="party-view" class="tab-pane">
