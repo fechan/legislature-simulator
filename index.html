@@ -49,7 +49,16 @@
         <!-- Party info -->
         <div id="party-view" class="tab-pane">
           <p id="party-name">Select a party or a member of a party to view party details.</p>
-          <p>Economic: <span id="party-x">?</span> Social: <span id="party-y">?</span></p>
+          <details open>
+            <summary>Political compass</summary>
+            <p>
+              Economic: <span id="party-x">?</span> Social: <span id="party-y">?</span>
+            </p>
+          </details>
+          <details open>
+            <summary>Issues the party cares about</summary>
+            <ul id="party-issues"></ul>
+          </details>
         </div>
       </div>
     </aside>
@@ -73,6 +82,9 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   <!-- End Import Bootstrap JS-->
   <script type="module" src="./adjectives.mjs"></Script>
+  <script type="module" src="./nouns.mjs"></Script>
+  <script type="module" src="./verbs.mjs"></Script>
+  <script type="module" src="./names.mjs"></Script>
   <script type="module" src="app.js"></script>
 </body>
 </html>

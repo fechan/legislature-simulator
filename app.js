@@ -382,19 +382,10 @@ import names from "./names.mjs";
     populateTextList(document.getElementById("legislator-issues"), legislator.issues);
     populateTextList(document.getElementById("bills-introduced"), legislator.billsIntroduced);
     populateTextList(document.getElementById("vote-history"), legislator.voteHistory);
-
+    
     showPartyInfo(legislator.party);
   }
-
-  function populateTextList(list, text) {
-    list.innerHTML = "";
-    for (let string of text) {
-      let listItem = document.createElement("li");
-      listItem.textContent = string;
-      list.appendChild(listItem);
-    }
-  }
-
+  
   /**
    * Shows the party's info in the sidebar
    * @param {Party} party party to show info about
@@ -404,8 +395,23 @@ import names from "./names.mjs";
     document.getElementById("party-name").style.color = party.color;
     document.getElementById("party-x").textContent = round(party.compass.x);
     document.getElementById("party-y").textContent = round(party.compass.y);
+    populateTextList(document.getElementById("party-issues"), party.issues);
   }
 
+  /**
+   * Add a list of text as items in an HTML element
+   * @param {HTMLElement} list HTML list to add list items to
+   * @param {Array}       text list of text to add as items to the HTML list
+   */
+  function populateTextList(list, text) {
+    list.innerHTML = "";
+    for (let string of text) {
+      let listItem = document.createElement("li");
+      listItem.textContent = string;
+      list.appendChild(listItem);
+    }
+  }
+  
   /**
    * Logs text in the log sidebar
    * @param {String} text text to log
