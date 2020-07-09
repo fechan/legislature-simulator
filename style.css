@@ -28,3 +28,11 @@ summary {
 button {
   margin-bottom: 1rem;
 }
+
+#aye {
+  color: green;
+}
+
+#nay {
+  color: red;
+}

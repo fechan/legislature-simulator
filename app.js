@@ -338,6 +338,7 @@ import names from "./names.mjs";
    */
   async function showVotes(legislature, voteResults) {
     let {name, sponsor, issue, passed, aye, nay, abstain, votes} = voteResults;
+    document.getElementById("current-bill").textContent = name;
     log(`${sponsor.name} (${sponsor.party.name}) is introducing the ${name}, which is about the following topic: ${issue}`);
     let chart = document.getElementById("chart");
     chart.innerHTML = "";
@@ -346,15 +347,23 @@ import names from "./names.mjs";
       "NAY": "red",
       "ABSTAIN": "gray"
     };
+    let tallies = {
+      "AYE": document.getElementById("aye"),
+      "NAY": document.getElementById("nay"),
+      "ABSTAIN": document.getElementById("abstain")
+    }
+    Object.values(tallies).forEach(elem => elem.innerHTML = 0);
     let squareAnimation = [];
     for (let i = 0; i < legislature.legislators.length; i++) {
       let legislator = legislature.legislators[i];
+      let vote = votes.get(legislator);
       let square = document.createElement("div");
       square.classList.add("chart-square");
-      square.style.backgroundColor = colors[votes.get(legislator)];
+      square.style.backgroundColor = colors[vote];
       square.addEventListener("click", () => showLegislatorInfo(legislator));
       squareAnimation.push(
         new Promise(resolve => setTimeout(() => {
+          tallies[vote].textContent = parseInt(tallies[vote].textContent) + 1;
           chart.appendChild(square);
           resolve();
         }, i*50)));
