@@ -15,6 +15,37 @@
   <title>Legislature Simulator</title>
 </head>
 <body class="container-fluid">
+  <!-- Intro modal where you convene a new legislature -->
+  <div class="modal" id="intro-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Welcome to Ruritania!</h5>
+        </div>
+        <div class="modal-body">
+          <form id="options">
+            <div class="form-group">
+              <label for="option-size">Seats in legislature</label>
+              <input type="number" class="form-control" id="option-size" name="size" value="30" min="1">
+              <small>Small countries have as few as 7, but China has almost 3000!</small>
+            </div>
+            <div class="form-group">
+              <label for="option-parties">Number of parties</label>
+              <input type="number" class="form-control" id="option-parties" name="parties" value="3" min="1">
+              <small>Number of parties available to join. Some parties may end up with no members.</small>
+            </div>
+            <div class="form-group">
+              <label for="option-size">Issue selections</label>
+              <input type="number" class="form-control" id="option-issues" name="issues" value="5" min="1">
+              <small>Number of times a party or legislator should select issues.</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="row" id="container-row">
     <!-- Shows detailed information about legislators or parties -->
     <aside id="details-sidebar" class="col-md-3 d-md-block sidebar">

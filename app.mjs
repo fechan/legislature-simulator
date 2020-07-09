@@ -321,15 +321,28 @@ class Legislature {
 
 window.addEventListener("load", init);
 
-async function init() {
+function init() {
+  $("#intro-modal").modal("show");
+  document.addEventListener("submit", electLegislature);
+}
+
+/**
+ * Elect a new legislature and allow sessions to start
+ * @param {Event} event event that triggered when options were sumbitted
+ */
+function electLegislature(event) {
+  event.preventDefault();
+  $("#intro-modal").modal("hide");
+  let form = document.getElementById("options");
+  let options = new FormData(form);
   let currentLegislature = new Legislature(
     names,
     nouns,
     ["red", "green", "blue", "orange", "purple"],
     shuffle(nouns).slice(0,5),
-    30,
-    5,
-    5
+    options.get("size"),
+    options.get("parties"),
+    options.get("issues")
   );
   updateChart(currentLegislature);
 
@@ -338,7 +351,7 @@ async function init() {
     nextBtn.setAttribute("disabled", true);
     await showVotes(currentLegislature, currentLegislature.holdSession());
     nextBtn.removeAttribute("disabled");
-  })
+  });
 }
 
 /**
