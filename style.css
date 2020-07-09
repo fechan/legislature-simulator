@@ -15,3 +15,8 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, .5);
   cursor: pointer;
 }
+
+.sidebar {
+  overflow-y: auto;
+  height: 100vh;
+}

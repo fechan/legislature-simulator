@@ -273,6 +273,8 @@ import names from "./names.mjs";
       let sponsor = randomSelect(this.legislators);
       let issue = randomSelect(sponsor.issues);
       let compass = sponsor.compass.add(randomCompass(5));
+      sponsor.billsIntroduced.push(name);
+
       let votes = new Map();
       let notAbstain = 0;
       let aye = 0;
@@ -283,6 +285,7 @@ import names from "./names.mjs";
         if (vote !== "ABSTAIN") notAbstain++;
         if (vote === "AYE") aye++;
         if (vote === "NAY") nay++;
+        legislator.voteHistory.push(name + " - " + vote);
       }
       let passed = aye / notAbstain > 0.5;
       return {
@@ -313,12 +316,14 @@ import names from "./names.mjs";
       names,
       nouns,
       ["red", "green", "blue"],
-      nouns,
+      nouns.slice(0,5),
       30,
       3,
-      1
+      5
     );
     updateChart(currentLegislature);
+    showVotes(currentLegislature, currentLegislature.holdSession());
+    showVotes(currentLegislature, currentLegislature.holdSession());
     showVotes(currentLegislature, currentLegislature.holdSession());
   }
 
@@ -344,7 +349,7 @@ import names from "./names.mjs";
       square.addEventListener("click", () => showLegislatorInfo(legislator));
       chart.appendChild(square);
     }
-    log(`The bill ${passed ? "PASSED" : "FAILED"} with ${aye} AYE, ${nay} NAY, and ${abstain} abstaining.`);
+    log(`The ${name} ${passed ? "PASSED" : "FAILED"} with ${aye} AYE, ${nay} NAY, and ${abstain} abstaining.`);
   }
 
   /**
@@ -374,6 +379,21 @@ import names from "./names.mjs";
     document.getElementById("legislator-party").style.color = legislator.party.color;
     document.getElementById("legislator-x").textContent = round(legislator.compass.x);
     document.getElementById("legislator-y").textContent = round(legislator.compass.y);
+
+    let sponsoredList = document.getElementById("bills-introduced");
+    sponsoredList.innerHTML = "";
+    for (let bill of legislator.billsIntroduced) {
+      let billElem = document.createElement("li");
+      billElem.textContent = bill;
+      sponsoredList.appendChild(billElem);
+    }
+    let voteList = document.getElementById("vote-history");
+    voteList.innerHTML = "";
+    for (let bill of legislator.voteHistory) {
+      let billElem = document.createElement("li");
+      billElem.textContent = bill;
+      voteList.appendChild(billElem);
+    }
 
     showPartyInfo(legislator.party);
   }
