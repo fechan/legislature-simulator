@@ -316,7 +316,7 @@ import names from "./names.mjs";
       names,
       nouns,
       ["red", "green", "blue", "orange", "purple"],
-      nouns.slice(0,5),
+      shuffle(nouns).slice(0,5),
       30,
       5,
       5
