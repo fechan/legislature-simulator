@@ -339,7 +339,7 @@ function electLegislature(event) {
     names,
     nouns,
     ["red", "green", "blue", "orange", "purple"],
-    shuffle(nouns).slice(0,5),
+    shuffle(nouns).slice(0, options.get("issues")),
     options.get("size"),
     options.get("parties"),
     options.get("issues")
