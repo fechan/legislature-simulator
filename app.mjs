@@ -466,11 +466,11 @@ function populateTextList(list, text) {
 
 /**
  * Logs text in the log sidebar
- * @param {String} text text to log
+ * @param {...(String|HTMLElement)} text text to log
  */
-function log(text) {
+function log(...text) {
   let entry = document.createElement("li");
-  entry.textContent = text;
+  entry.append(text);
   document.getElementById("log").appendChild(entry);
   document.getElementById("next").scrollIntoView({behavior: "smooth"});
 }
