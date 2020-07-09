@@ -420,5 +420,6 @@ import names from "./names.mjs";
     let entry = document.createElement("li");
     entry.textContent = text;
     document.getElementById("log").appendChild(entry);
+    entry.scrollIntoView({behavior: "smooth"});
   }
 })();
