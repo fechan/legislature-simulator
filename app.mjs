@@ -370,17 +370,13 @@ async function showVotes(legislature, voteResults) {
   for (let i = 0; i < legislature.legislators.length; i++) {
     let legislator = legislature.legislators[i];
     let vote = votes.get(legislator);
-    let square = document.createElement("div");
-    setPopover(square, legislator);
-    square.classList.add("chart-square");
-    square.style.backgroundColor = colors[vote];
-    square.addEventListener("click", () => showLegislatorInfo(legislator));
+    let square = chartSquare(colors[vote], legislator, legislature.size);
     squareAnimation.push(
       new Promise(resolve => setTimeout(() => {
         tallies[vote].textContent = parseInt(tallies[vote].textContent) + 1;
         chart.appendChild(square);
         resolve();
-      }, i*50)));
+      }, i*10)));
   }
   await Promise.all(squareAnimation);
   log(`The ${name} `,
@@ -399,13 +395,27 @@ function updateChart(legislature) {
   let chart = document.getElementById("chart");
   chart.innerHTML = "";
   for (let legislator of legislature.legislators) {
-    let square = document.createElement("div");
-    setPopover(square, legislator);
-    square.classList.add("chart-square");
-    square.style.backgroundColor = legislator.party.color;
-    square.addEventListener("click", () => showLegislatorInfo(legislator));
-    chart.appendChild(square);
+    chart.appendChild(chartSquare(legislator.party.color, legislator, legislature.size));
   }
+}
+
+/**
+ * Creates a chart square for a legislator
+ * @param {String}      color       color of the square
+ * @param {Legislator}  legislator  legislator whose info to show when clicked/hovered
+ * @param {Number}      members     number of members in legislature
+ * @returns {HTMLDivElement} legislator's chart square
+ */
+function chartSquare(color, legislator, members) {
+  let square = document.createElement("div");
+  setPopover(square, legislator);
+  square.classList.add("chart-square");
+  square.style.backgroundColor = color;
+  let sideLength = (members >= 300) ? "1.5rem" : "2rem";
+  square.style.width = sideLength;
+  square.style.height = sideLength;
+  square.addEventListener("click", () => showLegislatorInfo(legislator));
+  return square;
 }
 
 /**
@@ -520,6 +530,5 @@ function legislatorLink(legislator) {
     showLegislatorInfo(legislator);
     $('a[href="#legislator-view"]').tab("show");
   });
-  console.log(link)
   return link;
 }
