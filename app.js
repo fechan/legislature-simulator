@@ -311,7 +311,7 @@ import names from "./names.mjs";
 
   window.addEventListener("load", init);
 
-  function init() {
+  async function init() {
     let currentLegislature = new Legislature(
       names,
       nouns,
@@ -322,9 +322,6 @@ import names from "./names.mjs";
       5
     );
     updateChart(currentLegislature);
-    showVotes(currentLegislature, currentLegislature.holdSession());
-    showVotes(currentLegislature, currentLegislature.holdSession());
-    showVotes(currentLegislature, currentLegislature.holdSession());
   }
 
   /**
@@ -332,7 +329,7 @@ import names from "./names.mjs";
    * @param {Object} legislature the legislature that voted
    * @param {Object} voteResults the results of a bill
    */
-  function showVotes(legislature, voteResults) {
+  async function showVotes(legislature, voteResults) {
     let {name, sponsor, issue, passed, aye, nay, abstain, votes} = voteResults;
     log(`${sponsor.name} (${sponsor.party.name}) is introducing the ${name}, which is about the following topic: ${issue}`);
     let chart = document.getElementById("chart");
@@ -342,13 +339,20 @@ import names from "./names.mjs";
       "NAY": "red",
       "ABSTAIN": "gray"
     };
-    for (let legislator of legislature.legislators) {
+    let squareAnimation = [];
+    for (let i = 0; i < legislature.legislators.length; i++) {
+      let legislator = legislature.legislators[i];
       let square = document.createElement("div");
       square.classList.add("chart-square");
       square.style.backgroundColor = colors[votes.get(legislator)];
       square.addEventListener("click", () => showLegislatorInfo(legislator));
-      chart.appendChild(square);
+      squareAnimation.push(
+        new Promise(resolve => setTimeout(() => {
+          chart.appendChild(square);
+          resolve();
+        }, i*50)));
     }
+    await Promise.all(squareAnimation);
     log(`The ${name} ${passed ? "PASSED" : "FAILED"} with ${aye} AYE, ${nay} NAY, and ${abstain} abstaining.`);
   }
 
