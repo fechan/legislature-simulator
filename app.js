@@ -315,10 +315,10 @@ import names from "./names.mjs";
     let currentLegislature = new Legislature(
       names,
       nouns,
-      ["red", "green", "blue"],
+      ["red", "green", "blue", "orange", "purple"],
       nouns.slice(0,5),
       30,
-      3,
+      5,
       5
     );
     updateChart(currentLegislature);
@@ -358,6 +358,7 @@ import names from "./names.mjs";
       let legislator = legislature.legislators[i];
       let vote = votes.get(legislator);
       let square = document.createElement("div");
+      setPopover(square, legislator);
       square.classList.add("chart-square");
       square.style.backgroundColor = colors[vote];
       square.addEventListener("click", () => showLegislatorInfo(legislator));
@@ -381,11 +382,42 @@ import names from "./names.mjs";
     chart.innerHTML = "";
     for (let legislator of legislature.legislators) {
       let square = document.createElement("div");
+      setPopover(square, legislator);
       square.classList.add("chart-square");
       square.style.backgroundColor = legislator.party.color;
       square.addEventListener("click", () => showLegislatorInfo(legislator));
       chart.appendChild(square);
     }
+  }
+
+  /**
+   * Sets a popover for a legislator's chart square
+   * @param {HTMLElement} square      the square to add a popover to
+   * @param {Legislator}  legislator  the legislator whose info to show
+   */
+  function setPopover(square, legislator) {
+    let content = document.createElement("div");
+
+    let party = document.createElement("p");
+    party.textContent = legislator.party.name;
+    party.style.color = legislator.party.color;
+
+    let compass = document.createElement("p");
+    compass.textContent = `Economic: ${round(legislator.compass.x)} Social: ${round(legislator.compass.y)}`;
+
+    let issueTitle = document.createTextNode("Cares about:");
+    let issues = document.createElement("ul");
+    populateTextList(issues, legislator.issues);
+
+    [party, compass, issueTitle, issues].forEach(elem => content.append(elem));
+
+    $(square).popover({
+      title: legislator.name,
+      content: content,
+      html: true,
+      placement: "bottom",
+      trigger: "hover"
+    });
   }
 
   /**
