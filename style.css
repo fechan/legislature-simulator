@@ -24,3 +24,7 @@
 summary {
   font-weight: bold;
 }
+
+button {
+  margin-bottom: 1rem;
+}

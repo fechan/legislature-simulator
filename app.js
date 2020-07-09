@@ -322,6 +322,13 @@ import names from "./names.mjs";
       5
     );
     updateChart(currentLegislature);
+
+    let nextBtn = document.getElementById("next");
+    nextBtn.addEventListener("click", async function(){
+      nextBtn.setAttribute("disabled", true);
+      await showVotes(currentLegislature, currentLegislature.holdSession());
+      nextBtn.removeAttribute("disabled");
+    })
   }
 
   /**
@@ -424,6 +431,6 @@ import names from "./names.mjs";
     let entry = document.createElement("li");
     entry.textContent = text;
     document.getElementById("log").appendChild(entry);
-    entry.scrollIntoView({behavior: "smooth"});
+    document.getElementById("next").scrollIntoView({behavior: "smooth"});
   }
 })();
