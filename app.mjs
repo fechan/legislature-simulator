@@ -349,7 +349,7 @@ async function init() {
 async function showVotes(legislature, voteResults) {
   let {name, sponsor, issue, passed, aye, nay, abstain, votes} = voteResults;
   document.getElementById("current-bill").textContent = name;
-  log(`${sponsor.name} (${sponsor.party.name}) is introducing the ${name}, which is about the following topic: ${issue}`);
+  log(legislatorLink(sponsor), ` is introducing the ${name}, which is about the following topic: ${issue}`);
   let chart = document.getElementById("chart");
   chart.innerHTML = "";
   Object.values(tallies).forEach(elem => elem.innerHTML = 0);
@@ -370,7 +370,12 @@ async function showVotes(legislature, voteResults) {
       }, i*50)));
   }
   await Promise.all(squareAnimation);
-  log(`The ${name} ${passed ? "PASSED" : "FAILED"} with ${aye} AYE, ${nay} NAY, and ${abstain} abstaining.`);
+  log(`The ${name} `,
+    coloredSpan(passed ? "PASSED" : "FAILED", passed ? "green" : "red"),
+    ` with `,
+    coloredSpan(aye, "green"), " AYE ",
+    coloredSpan(nay, "red"), " NAY ",
+    `and ${abstain} abstaining.`);
 }
 
 /**
@@ -470,7 +475,38 @@ function populateTextList(list, text) {
  */
 function log(...text) {
   let entry = document.createElement("li");
-  entry.append(text);
+  entry.append(...text);
   document.getElementById("log").appendChild(entry);
   document.getElementById("next").scrollIntoView({behavior: "smooth"});
+}
+
+/**
+ * Makes a colored span with text
+ * @param {String} text   text to add
+ * @param {String} color  CSS color
+ * @return {HTMLSpanElement} a colored span with text
+ */
+function coloredSpan(text, color) {
+  let span = document.createElement("span");
+  span.style.color = color;
+  span.textContent = text;
+  return span;
+}
+
+/**
+ * Makes a link that shows the legislator's details in the sidebar
+ * @param {Legislator} legislator legislator to make a link for
+ * @return {HTMLAnchorElement} a link that shows the legislator's details
+ */
+function legislatorLink(legislator) {
+  let party = legislator.party;
+  let link = document.createElement("a");
+  link.href = "#";
+  link.append(legislator.name, " (", coloredSpan(party.name, party.color), ")");
+  link.addEventListener("click", () => {
+    showLegislatorInfo(legislator);
+    $('a[href="#legislator-view"]').tab("show");
+  });
+  console.log(link)
+  return link;
 }
