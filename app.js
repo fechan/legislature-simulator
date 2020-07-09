@@ -61,6 +61,17 @@ import names from "./names.mjs";
   }
 
   /**
+   * Makes a string title cased
+   * Originally from https://stackoverflow.com/a/11934819
+   * @param {String} s string to make title case
+   */
+  function titleCase(s){
+    return s.replace(/([^\s:\-])([^\s:\-]*)/g,function($0,$1,$2){
+        return $1.toUpperCase()+$2.toLowerCase();
+    });
+  }
+
+  /**
    * Represents a point on a political compass
    */
   class Point {
@@ -220,9 +231,8 @@ import names from "./names.mjs";
         for (let issueNo = 0; issueNo < this.issueSelections; issueNo++) {
           partyIssues.push(randomSelect(this.issues));
         }
-        let name = names[i % names.length];
         parties.push(new Party(
-          name.charAt(0).toUpperCase() + name.slice(1) + " Party", // capitalizes the name
+          titleCase(names[i % names.length] + " Party"),
           colors[i % colors.length],
           randomCompass(10),
           partyIssues
@@ -259,6 +269,7 @@ import names from "./names.mjs";
      * @returns an object representing the bill's fate
      */
     holdSession() {
+      let name = this.generateBillName();
       let sponsor = randomSelect(this.legislators);
       let issue = randomSelect(sponsor.issues);
       let compass = sponsor.compass.add(randomCompass(5));
@@ -275,6 +286,7 @@ import names from "./names.mjs";
       }
       let passed = aye / notAbstain > 0.5;
       return {
+        name: name,
         sponsor: sponsor,
         issue: issue,
         passed: passed,
@@ -283,6 +295,14 @@ import names from "./names.mjs";
         abstain: this.size - notAbstain,
         votes: votes,
       }
+    }
+
+    /**
+     * Generates a random bill name with the format ADJECTIVE NOUN VERB Act
+     * @returns a random bill name
+     */
+    generateBillName() {
+      return titleCase(`${randomSelect(adjectives)} ${randomSelect(nouns)} ${randomSelect(verbs)} Act`);
     }
   }
 
@@ -308,8 +328,8 @@ import names from "./names.mjs";
    * @param {Object} voteResults the results of a bill
    */
   function showVotes(legislature, voteResults) {
-    let {sponsor, issue, passed, aye, nay, abstain, votes} = voteResults;
-    log(`${sponsor.name} (${sponsor.party.name}) is introducing a new bill about the following topic: ${issue}`);
+    let {name, sponsor, issue, passed, aye, nay, abstain, votes} = voteResults;
+    log(`${sponsor.name} (${sponsor.party.name}) is introducing the ${name}, which is about the following topic: ${issue}`);
     let chart = document.getElementById("chart");
     chart.innerHTML = "";
     let colors = {
