@@ -379,23 +379,20 @@ import names from "./names.mjs";
     document.getElementById("legislator-party").style.color = legislator.party.color;
     document.getElementById("legislator-x").textContent = round(legislator.compass.x);
     document.getElementById("legislator-y").textContent = round(legislator.compass.y);
-
-    let sponsoredList = document.getElementById("bills-introduced");
-    sponsoredList.innerHTML = "";
-    for (let bill of legislator.billsIntroduced) {
-      let billElem = document.createElement("li");
-      billElem.textContent = bill;
-      sponsoredList.appendChild(billElem);
-    }
-    let voteList = document.getElementById("vote-history");
-    voteList.innerHTML = "";
-    for (let bill of legislator.voteHistory) {
-      let billElem = document.createElement("li");
-      billElem.textContent = bill;
-      voteList.appendChild(billElem);
-    }
+    populateTextList(document.getElementById("legislator-issues"), legislator.issues);
+    populateTextList(document.getElementById("bills-introduced"), legislator.billsIntroduced);
+    populateTextList(document.getElementById("vote-history"), legislator.voteHistory);
 
     showPartyInfo(legislator.party);
+  }
+
+  function populateTextList(list, text) {
+    list.innerHTML = "";
+    for (let string of text) {
+      let listItem = document.createElement("li");
+      listItem.textContent = string;
+      list.appendChild(listItem);
+    }
   }
 
   /**
