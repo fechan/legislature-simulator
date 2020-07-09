@@ -4,6 +4,17 @@ import nouns from "./nouns.mjs";
 import names from "./names.mjs";
 
 "use strict";
+const colors = {
+  "AYE": "green",
+  "NAY": "red",
+  "ABSTAIN": "gray"
+};
+const tallies = {
+  "AYE": document.getElementById("aye"),
+  "NAY": document.getElementById("nay"),
+  "ABSTAIN": document.getElementById("abstain")
+}
+
 /**
  * UTILITY FUNCTIONS
  */
@@ -341,16 +352,6 @@ async function showVotes(legislature, voteResults) {
   log(`${sponsor.name} (${sponsor.party.name}) is introducing the ${name}, which is about the following topic: ${issue}`);
   let chart = document.getElementById("chart");
   chart.innerHTML = "";
-  let colors = {
-    "AYE": "green",
-    "NAY": "red",
-    "ABSTAIN": "gray"
-  };
-  let tallies = {
-    "AYE": document.getElementById("aye"),
-    "NAY": document.getElementById("nay"),
-    "ABSTAIN": document.getElementById("abstain")
-  }
   Object.values(tallies).forEach(elem => elem.innerHTML = 0);
   let squareAnimation = [];
   for (let i = 0; i < legislature.legislators.length; i++) {
