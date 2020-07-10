@@ -372,7 +372,7 @@ function electLegislature(event) {
  */
 function updateSidebar(legislature) {
   let partyMemberCount = legislature.parties.map(party => {
-    let span =  document.createElement("span");
+    let span = document.createElement("span");
     span.append(partyLink(party), ": ", party.members.length);
     return span;
   })
