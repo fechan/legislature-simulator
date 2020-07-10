@@ -414,7 +414,10 @@ function chartSquare(color, legislator, members) {
   let sideLength = (members >= 300) ? "1.5rem" : "2rem";
   square.style.width = sideLength;
   square.style.height = sideLength;
-  square.addEventListener("click", () => showLegislatorInfo(legislator));
+  square.addEventListener("click", () => {
+    showLegislatorInfo(legislator);
+    $('a[href="#legislator-view"]').tab("show");
+  });
   return square;
 }
 
