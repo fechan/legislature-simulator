@@ -230,7 +230,7 @@ class Legislature {
     this.laws = [];
     this.sessions = 0;
     this.failed = () => this.sessions - this.laws.length;
-    this.percentPassed = () => (this.laws.length / this.sessions) * 100;
+    this.percentPassed = () => this.sesions ? (this.laws.length / this.sessions) * 100 : 0;
   }
 
   /**
@@ -377,6 +377,7 @@ function updateSidebar(legislature) {
     return span;
   })
   populateTextList(document.getElementById("legislature-parties"), partyMemberCount);
+  populateTextList(document.getElementById("legislature-laws"), legislature.laws);
 
   document.getElementById("legislature-sessions").textContent = legislature.sessions;
   document.getElementById("legislature-passed").textContent = legislature.laws.length;
