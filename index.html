@@ -53,12 +53,38 @@
     <!-- Shows detailed information about legislators or parties -->
     <aside id="details-sidebar" class="col-md-3 d-md-block sidebar">
       <ul class="nav nav-tabs">
-        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#legislator-view">Legislator</a></li>
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#legislature-view">Legislature</a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#party-view">Party</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#legislator-view">Legislator</a></li>
       </ul>
       <div class="tab-content">
+        <!-- Legislature info -->
+        <div id="legislature-view" class="tab-pane active">
+          <details open>
+            <summary>Party membership</summary>
+            <ul id="legislature-parties"></ul>
+          </details>
+          <p>Sessions held: <span id="legislature-sessions">0</span></p>
+          <p>Bills passed: <span id="legislature-passed">0</span></p>
+          <p>% Bills passed: <span id="legislature-passpercent">0%</span></p>
+          <p>Bills failed: <span id="legislature-failed">0</span></p>
+        </div>
+        <!-- Party info -->
+        <div id="party-view" class="tab-pane">
+          <p id="party-name">Select a party or a member of a party to view party details.</p>
+          <details open>
+            <summary>Issues the party cares about</summary>
+            <ul id="party-issues"></ul>
+          </details>
+          <details open>
+            <summary>Political compass</summary>
+            <p>
+              Economic: <span id="party-x">?</span> Social: <span id="party-y">?</span>
+            </p>
+          </details>
+        </div>
         <!-- Legislator info -->
-        <div id="legislator-view" class="tab-pane active">
+        <div id="legislator-view" class="tab-pane">
           <p>
             <span id="legislator-name">Select a legislator to view their details.</span>
             (<span id="legislator-party">Try it!</span>)
@@ -80,20 +106,6 @@
           <details open>
             <summary>Voting history</summary>
             <ul id="vote-history"></ul>
-          </details>
-        </div>
-        <!-- Party info -->
-        <div id="party-view" class="tab-pane">
-          <p id="party-name">Select a party or a member of a party to view party details.</p>
-          <details open>
-            <summary>Issues the party cares about</summary>
-            <ul id="party-issues"></ul>
-          </details>
-          <details open>
-            <summary>Political compass</summary>
-            <p>
-              Economic: <span id="party-x">?</span> Social: <span id="party-y">?</span>
-            </p>
           </details>
         </div>
       </div>

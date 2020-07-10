@@ -161,6 +161,7 @@ class Party extends PoliticalActor {
   constructor(name, color, compass, issues) {
     super(name, compass, issues);
     this.color = color;
+    this.members = [];
   }
 }
 
@@ -225,6 +226,11 @@ class Legislature {
     this.parties = this.generateParties(partyNames, colors, numParties);
     this.legislators = this.generateLegislators(legislatorNames, size, issueSelections);
     log(`Created a legislature with ${size} members and ${numParties} available parties to join.`);
+
+    this.laws = [];
+    this.sessions = 0;
+    this.failed = () => this.sessions - this.laws.length;
+    this.percentPassed = () => (this.laws.length / this.sessions) * 100;
   }
 
   /**
@@ -269,7 +275,9 @@ class Legislature {
         myIssues.push(randomSelect(this.issues));
       }
       myIssues = myIssues.concat(party.issues);
-      legislators.push(new Legislator(names[i % names.length], party, compass, myIssues));
+      let legislator = new Legislator(names[i % names.length], party, compass, myIssues);
+      legislators.push(legislator);
+      party.members.push(legislator);
     }
     return legislators;
   }
@@ -279,6 +287,7 @@ class Legislature {
    * @returns an object representing the bill's fate
    */
   holdSession() {
+    this.sessions++;
     let name = this.generateBillName();
     let sponsor = randomSelect(this.legislators);
     let issue = randomSelect(sponsor.issues);
@@ -298,6 +307,7 @@ class Legislature {
       legislator.voteHistory.push(name + " - " + vote);
     }
     let passed = aye / notAbstain > 0.5;
+    if (passed) this.laws.push(name);
     return {
       name: name,
       sponsor: sponsor,
@@ -344,14 +354,34 @@ function electLegislature(event) {
     options.get("parties"),
     options.get("issues")
   );
+  updateSidebar(currentLegislature);
   updateChart(currentLegislature);
-
+  
   let nextBtn = document.getElementById("next");
   nextBtn.addEventListener("click", async function(){
     nextBtn.setAttribute("disabled", true);
     await showVotes(currentLegislature, currentLegislature.holdSession());
+    updateSidebar(currentLegislature);
     nextBtn.removeAttribute("disabled");
   });
+}
+
+/**
+ * Update sidebar details
+ * @param {Legislature} legislature the legislature to show the info of
+ */
+function updateSidebar(legislature) {
+  let partyMemberCount = legislature.parties.map(party => {
+    let span =  document.createElement("span");
+    span.append(partyLink(party), ": ", party.members.length);
+    return span;
+  })
+  populateTextList(document.getElementById("legislature-parties"), partyMemberCount);
+
+  document.getElementById("legislature-sessions").textContent = legislature.sessions;
+  document.getElementById("legislature-passed").textContent = legislature.laws.length;
+  document.getElementById("legislature-passpercent").textContent = round(legislature.percentPassed()) + "%";
+  document.getElementById("legislature-failed").textContent = legislature.failed();
 }
 
 /**
@@ -532,6 +562,22 @@ function legislatorLink(legislator) {
   link.addEventListener("click", () => {
     showLegislatorInfo(legislator);
     $('a[href="#legislator-view"]').tab("show");
+  });
+  return link;
+}
+
+/**
+ * Makes a link that shows the party's details in the sidebar
+ * @param {Party} party         party to make a link for
+ * @return {HTMLAnchorElement}  a link that shows the party's details
+ */
+function partyLink(party) {
+  let link = document.createElement("a");
+  link.href = "#";
+  link.append(coloredSpan(party.name, party.color));
+  link.addEventListener("click", () => {
+    showPartyInfo(party);
+    $('a[href="#party-view"]').tab("show");
   });
   return link;
 }
