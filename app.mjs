@@ -483,14 +483,14 @@ function showPartyInfo(party) {
 
 /**
  * Add a list of text as items in an HTML element
- * @param {HTMLElement} list HTML list to add list items to
- * @param {Array}       text list of text to add as items to the HTML list
+ * @param {HTMLElement}             list HTML list to add list items to
+ * @param {(String|HTMLElement)[]}  text text that will be added under 1 list item in the list
  */
 function populateTextList(list, text) {
   list.innerHTML = "";
-  for (let string of text) {
+  for (let element of text) {
     let listItem = document.createElement("li");
-    listItem.textContent = string;
+    listItem.append(element);
     list.appendChild(listItem);
   }
 }
