@@ -460,11 +460,13 @@ function chartSquare(color, legislator, members) {
 
 /**
  * Shows the legislator details tab in the sidebar and updates variables accordingly
+ * Will also update the party tab with the legislator's party, but not switch to it
  * @param {Legislator} legislator legislator to show
  */
 function jumpToLegislatorView(legislator) {
   viewingLegislator = legislator;
   updateLegislatorInfo(legislator);
+  updatePartyInfo(legislator.party);
   $('a[href="#legislator-view"]').tab("show");
 }
 
