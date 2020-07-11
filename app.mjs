@@ -517,8 +517,9 @@ function setPopover(square, legislator) {
  */
 function updateLegislatorInfo(legislator) {
   document.getElementById("legislator-name").textContent = legislator.name;
-  document.getElementById("legislator-party").textContent = legislator.party.name;
-  document.getElementById("legislator-party").style.color = legislator.party.color;
+  let party = partyLink(legislator.party);
+  party.id = "legislator-party";
+  document.getElementById("legislator-party").replaceWith(party);
   document.getElementById("legislator-x").textContent = round(legislator.compass.x);
   document.getElementById("legislator-y").textContent = round(legislator.compass.y);
   populateTextList(document.getElementById("legislator-issues"), legislator.issues);
