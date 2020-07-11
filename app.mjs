@@ -377,6 +377,9 @@ function electLegislature(event) {
  * @param {Legislature} legislature the legislature to show the info of
  */
 function updateSidebar(legislature) {
+  if (viewingLegislator) updateLegislatorInfo(viewingLegislator);
+  if (viewingParty) updatePartyInfo(viewingParty);
+
   let partyMemberCount = legislature.parties.map(party => {
     let span = document.createElement("span");
     span.append(partyLink(party), ": ", party.members.length);
