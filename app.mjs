@@ -329,6 +329,12 @@ class Legislature {
   }
 }
 
+/**
+ * GLOBAL VARIABLES FOR THE VIEW
+ */
+let viewingLegislator;
+let viewingParty;
+
 window.addEventListener("load", init);
 
 function init() {
@@ -445,11 +451,28 @@ function chartSquare(color, legislator, members) {
   let sideLength = (members >= 300) ? "1.5rem" : "2rem";
   square.style.width = sideLength;
   square.style.height = sideLength;
-  square.addEventListener("click", () => {
-    showLegislatorInfo(legislator);
-    $('a[href="#legislator-view"]').tab("show");
-  });
+  square.addEventListener("click", () => jumpToLegislatorView(legislator));
   return square;
+}
+
+/**
+ * Shows the legislator details tab in the sidebar and updates variables accordingly
+ * @param {Legislator} legislator legislator to show
+ */
+function jumpToLegislatorView(legislator) {
+  viewingLegislator = legislator;
+  updateLegislatorInfo(legislator);
+  $('a[href="#legislator-view"]').tab("show");
+}
+
+/**
+ * Shows the party details tab in the sidebar and updates variables accordingly
+ * @param {Party} party party to show
+ */
+function jumpToPartyView(party) {
+  viewingParty = party;
+  updatePartyInfo(party);
+  $('a[href="#party-view"]').tab("show");
 }
 
 /**
@@ -483,11 +506,11 @@ function setPopover(square, legislator) {
 }
 
 /**
- * Shows the legislator's info in the sidebar
+ * Updates the legislator's info in the sidebar
  * Also updates the party tab with the legislator's party info
  * @param {Legislator} legislator legislator to show info about
  */
-function showLegislatorInfo(legislator) {
+function updateLegislatorInfo(legislator) {
   document.getElementById("legislator-name").textContent = legislator.name;
   document.getElementById("legislator-party").textContent = legislator.party.name;
   document.getElementById("legislator-party").style.color = legislator.party.color;
@@ -496,15 +519,13 @@ function showLegislatorInfo(legislator) {
   populateTextList(document.getElementById("legislator-issues"), legislator.issues);
   populateTextList(document.getElementById("bills-introduced"), legislator.billsIntroduced);
   populateTextList(document.getElementById("vote-history"), legislator.voteHistory);
-  
-  showPartyInfo(legislator.party);
 }
 
 /**
- * Shows the party's info in the sidebar
+ * Updates the party's info in the sidebar
  * @param {Party} party party to show info about
  */
-function showPartyInfo(party) {
+function updatePartyInfo(party) {
   document.getElementById("party-name").textContent = party.name;
   document.getElementById("party-name").style.color = party.color;
   document.getElementById("party-x").textContent = round(party.compass.x);
@@ -561,7 +582,7 @@ function legislatorLink(legislator) {
   link.href = "#";
   link.append(legislator.name, " (", coloredSpan(party.name, party.color), ")");
   link.addEventListener("click", () => {
-    showLegislatorInfo(legislator);
+    updateLegislatorInfo(legislator);
     $('a[href="#legislator-view"]').tab("show");
   });
   return link;
@@ -576,9 +597,6 @@ function partyLink(party) {
   let link = document.createElement("a");
   link.href = "#";
   link.append(coloredSpan(party.name, party.color));
-  link.addEventListener("click", () => {
-    showPartyInfo(party);
-    $('a[href="#party-view"]').tab("show");
-  });
+  link.addEventListener("click", () => jumpToPartyView(party));
   return link;
 }
