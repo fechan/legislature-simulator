@@ -439,9 +439,8 @@ function updateChart(legislature) {
   }
 
   let partyList = document.getElementById("party-list");
-  for (let party of legislature.parties) {
-    partyList.append(partyLink(party));
-  }
+  partyList.innerHTML = "";
+  legislature.parties.forEach(party => partyList.append(partyLink(party)));
 }
 
 /**
