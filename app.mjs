@@ -400,6 +400,7 @@ function updateSidebar(legislature) {
  * @param {Object} voteResults the results of a bill
  */
 async function showVotes(legislature, voteResults) {
+  document.getElementById("party-list").classList.add("d-none");
   let {name, sponsor, issue, passed, aye, nay, abstain, votes} = voteResults;
   document.getElementById("current-bill").textContent = name;
   log(legislatorLink(sponsor), ` is introducing the ${name}, which is about the following topic: ${issue}`);
@@ -439,6 +440,7 @@ function updateChart(legislature) {
   }
 
   let partyList = document.getElementById("party-list");
+  partyList.classList.remove("d-none");
   partyList.innerHTML = "";
   legislature.parties.forEach(party => partyList.append(partyLink(party)));
 }
