@@ -42,3 +42,13 @@ button {
 #nay {
   color: red;
 }
+
+#party-list {
+  min-width: 50%;
+  padding: .25rem 1rem;
+  margin-bottom: 1rem;
+}
+
+#party-list > a {
+  margin: 0 .5rem;
+}

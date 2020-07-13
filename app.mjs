@@ -437,6 +437,11 @@ function updateChart(legislature) {
   for (let legislator of legislature.legislators) {
     chart.appendChild(chartSquare(legislator.party.color, legislator, legislature.size));
   }
+
+  let partyList = document.getElementById("party-list");
+  for (let party of legislature.parties) {
+    partyList.append(partyLink(party));
+  }
 }
 
 /**
