@@ -20,7 +20,9 @@ button {
 }
 
 .chart-square:hover {
-  box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+  position: relative;
+  top: -1px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
   cursor: pointer;
 }
 
