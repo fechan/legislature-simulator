@@ -205,14 +205,11 @@ class Legislator extends PoliticalActor {
    * @returns the legislator's decision
    */
   decide(billIssue, billCompass) {
-    if (!this.issues.includes(billIssue)) {
-      return "ABSTAIN";
+    if (!this.issues.includes(billIssue)) return this.party.decide(billIssue, billCompass);
+    if (this.compass.distanceTo(billCompass) > 5 + (Math.random() * 5)) {
+      return "NAY";
     } else {
-      if (this.compass.distanceTo(billCompass) > 5 + (Math.random() * 5)) {
-        return "NAY";
-      } else {
-        return "AYE";
-      }
+      return "AYE";
     }
   }
 }
