@@ -144,6 +144,7 @@ class PoliticalActor {
     this.name = name;
     this.compass = compass;
     this.issues = [...new Set(issues)]; // removes dupes
+    this.voteHistory = [];
   }
 } 
 
@@ -195,7 +196,6 @@ class Legislator extends PoliticalActor {
     super(name, compass, issues);
     this.party = party;
     this.billsIntroduced = [];
-    this.voteHistory = [];
   }
 
   /**
@@ -304,6 +304,7 @@ class Legislature {
     let issue = randomSelect(sponsor.issues);
     let compass = sponsor.compass.add(randomCompass(5));
     sponsor.billsIntroduced.push(name);
+    this.parties.forEach(party => party.voteHistory.push(name + " - " + party.decide(issue, compass)));
 
     let votes = new Map();
     let notAbstain = 0;
@@ -564,6 +565,7 @@ function updatePartyInfo(party) {
   document.getElementById("party-x").textContent = round(party.compass.x);
   document.getElementById("party-y").textContent = round(party.compass.y);
   populateTextList(document.getElementById("party-issues"), party.issues);
+  populateTextList(document.getElementById("party-lines"), party.voteHistory);
 }
 
 /**
