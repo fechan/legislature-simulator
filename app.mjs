@@ -323,6 +323,7 @@ class Legislature {
       name: name,
       sponsor: sponsor,
       issue: issue,
+      compass: compass,
       passed: passed,
       aye: aye,
       nay: nay,
@@ -412,9 +413,18 @@ function updateSidebar(legislature) {
  */
 async function showVotes(legislature, voteResults) {
   document.getElementById("party-list").classList.add("d-none");
-  let {name, sponsor, issue, passed, aye, nay, abstain, votes} = voteResults;
+  let {name, sponsor, issue, compass, passed, aye, nay, abstain, votes} = voteResults;
   document.getElementById("current-bill").textContent = name;
+
   log(legislatorLink(sponsor), ` is introducing the ${name}, which is about the following topic: ${issue}`);
+  let partyLineList = document.createElement("ul");
+  for (let party of legislature.parties) {
+    let partyLine = document.createElement("li");
+    partyLine.append("The ", partyLink(party), " official stance is ", party.decide(issue, compass));
+    partyLineList.append(partyLine);
+  }
+  log("Party lines for his bill:", partyLineList);
+
   let chart = document.getElementById("chart");
   chart.innerHTML = "";
   Object.values(tallies).forEach(elem => elem.innerHTML = 0);
