@@ -420,7 +420,7 @@ async function showVotes(legislature, voteResults) {
   let partyLineList = document.createElement("ul");
   for (let party of legislature.parties) {
     let partyLine = document.createElement("li");
-    partyLine.append(partyLink(party), ": ", party.decide(issue, compass));
+    partyLine.append(partyLink(party), ": ", voteSpan(party.decide(issue, compass)));
     partyLineList.append(partyLine);
   }
   log("Party lines for this bill:", partyLineList);
@@ -602,6 +602,15 @@ function coloredSpan(text, color) {
   span.style.color = color;
   span.textContent = text;
   return span;
+}
+
+/**
+ * Makes a span appropriately colored for a vote
+ * @param {String} vote A vote. Can be "AYE", "NAY", or "ABSTAIN"
+ * @returns {HTMLSpanElement} a span appropriately colored for a vote
+ */
+function voteSpan(vote) {
+  return coloredSpan(vote, colors[vote]);
 }
 
 /**
