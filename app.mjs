@@ -420,7 +420,7 @@ async function showVotes(legislature, voteResults) {
   let partyLineList = document.createElement("ul");
   for (let party of legislature.parties) {
     let partyLine = document.createElement("li");
-    partyLine.append("The ", partyLink(party), " official stance is ", party.decide(issue, compass));
+    partyLine.append(partyLink(party), ": ", party.decide(issue, compass));
     partyLineList.append(partyLine);
   }
   log("Party lines for this bill:", partyLineList);
