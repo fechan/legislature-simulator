@@ -423,7 +423,7 @@ async function showVotes(legislature, voteResults) {
     partyLine.append("The ", partyLink(party), " official stance is ", party.decide(issue, compass));
     partyLineList.append(partyLine);
   }
-  log("Party lines for his bill:", partyLineList);
+  log("Party lines for this bill:", partyLineList);
 
   let chart = document.getElementById("chart");
   chart.innerHTML = "";
