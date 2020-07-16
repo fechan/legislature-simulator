@@ -40,7 +40,6 @@ advertising
 advice
 affair
 affect
-afghanistan
 africa
 aftermath
 afternoon
@@ -70,7 +69,6 @@ alcohol
 alcove
 alder
 algebra
-algeria
 alibi
 allergist
 alley
@@ -91,7 +89,6 @@ aluminum
 ambassador
 ambulance
 amendment
-america
 amount
 amusement
 anagram
@@ -116,7 +113,6 @@ annual
 anorak
 answer
 ant
-antarctica
 anteater
 antechamber
 antelope
@@ -151,7 +147,6 @@ architect
 architecture
 arch-rival
 area
-argentina
 argument
 aries
 arithmetic
@@ -159,7 +154,6 @@ arm
 armadillo
 armament
 armchair
-armenian
 armoire
 armor
 arm-rest
@@ -207,8 +201,6 @@ audience
 auditorium
 august
 aunt
-australia
-australian
 author
 authorisation
 authority
@@ -246,7 +238,6 @@ balaclava
 balalaika
 balance
 balcony
-balinese
 ball
 balloon
 ballpark
@@ -256,7 +247,6 @@ band
 bandana
 bandanna
 bandolier
-bangladesh
 bangle
 banjo
 bank
@@ -329,7 +319,6 @@ behavior
 beheading
 behest
 belfry
-belgian
 belief
 believe
 bell
@@ -341,7 +330,6 @@ bench
 bend
 beneficiary
 benefit
-bengal
 beret
 berry
 bestseller
@@ -464,7 +452,6 @@ brandy
 brass
 brassiere
 bratwurst
-brazil
 bread
 breadcrumb
 break
@@ -482,7 +469,6 @@ bridge
 brief
 briefs
 brilliant
-british
 broccoli
 brochure
 broiler
@@ -571,8 +557,6 @@ camp
 campaign
 campanile
 can
-canada
-canadian
 canal
 cancel
 cancer
@@ -658,8 +642,6 @@ cellar
 cello
 celsius
 cement
-cemetery
-cenotaph
 census
 cent
 centenarian
@@ -729,8 +711,6 @@ chill
 chime
 chimpanzee
 chin
-china
-chinese
 chino
 chipmunk
 chit-chat
@@ -829,7 +809,6 @@ collection
 college
 collision
 colloquia
-colombia
 colon
 colonisation
 colony
@@ -878,7 +857,6 @@ confidence
 confirmation
 conflict
 conga
-congo
 congressman
 congressperson
 congresswoman
@@ -1010,7 +988,6 @@ crush
 cry
 crystallography
 cub
-cuban
 cuckoo
 cucumber
 cuff-links
@@ -1310,7 +1287,6 @@ egg
 egghead
 eggnog
 eggplant
-egypt
 eight
 ejector
 elbow
@@ -1373,7 +1349,6 @@ estimate
 estrogen
 estuary
 ethernet
-ethiopia
 euphonium
 eurocentrism
 europe
@@ -1571,7 +1546,6 @@ fox
 foxglove
 fragrance
 frame
-france
 fratricide
 fraudster
 frazzle
@@ -1581,7 +1555,6 @@ freeze
 freezer
 freight
 freighter
-french
 freon
 fresco
 friction
@@ -1659,10 +1632,7 @@ george
 geranium
 gerbil
 geriatrician
-german
-germany
 geyser
-ghana
 gherkin
 ghost
 giant
@@ -1731,8 +1701,6 @@ grease
 great
 great-grandfather
 great-grandmother
-greece
-greek
 green
 greenhouse
 grenade
@@ -1747,7 +1715,6 @@ grouper
 grouse
 growth
 guarantee
-guatemalan
 guest
 guestbook
 guide
@@ -1955,9 +1922,7 @@ income
 increase
 independent
 index
-india
 indigence
-indonesia
 industry
 infancy
 inflammation
@@ -2011,17 +1976,13 @@ inventory
 invite
 invoice
 iPad
-iran
-iraq
 iridescence
 iris
 iron
 ironclad
 island
-israel
 issue
 italian
-italy
 jackal
 jacket
 jaguar
@@ -2030,8 +1991,6 @@ jailhouse
 jam
 james
 january
-japan
-japanese
 jar
 jasmine
 jason
@@ -2083,7 +2042,6 @@ kayak
 kazoo
 kendo
 kenneth
-kenya
 ketch
 ketchup
 kettle
@@ -2128,7 +2086,6 @@ knowledge
 knuckle
 koala
 kohlrabi
-korean
 lab
 laborer
 lace
@@ -2139,7 +2096,6 @@ lake
 lamb
 lamp
 lan
-lanai
 land
 landform
 landmine
@@ -2290,7 +2246,6 @@ maintenance
 major
 major-league
 makeup
-malaysia
 male
 mall
 mallet
@@ -2314,7 +2269,6 @@ mantel
 mantle
 mantua
 manufacturer
-manx
 map
 maple
 maraca
@@ -2385,8 +2339,6 @@ method
 methodology
 metro
 metronome
-mexican
-mexico
 mezzanine
 mice
 michael
@@ -2467,7 +2419,6 @@ moonshine
 mop
 Mormon
 morning
-morocco
 morsel
 mortise
 mosque
@@ -2508,7 +2459,6 @@ music-making
 mustache
 mustard
 mutt
-myanmar
 mycoplasma
 nail
 name
@@ -2530,7 +2480,6 @@ needle
 negligee
 neologism
 neon
-nepal
 nephew
 nerve
 nest
@@ -2552,7 +2501,6 @@ nicety
 niche
 nickel
 niece
-nigeria
 night
 nightclub
 nightgown
@@ -2568,9 +2516,6 @@ noodle
 normal
 norse
 north
-north_america
-north_korea
-norwegian
 nose
 note
 notebook
@@ -2657,7 +2602,6 @@ osprey
 ostrich
 others
 otter
-ottoman
 ounce
 outback
 outcome
@@ -2703,7 +2647,6 @@ paintwork
 pair
 pajama
 pajamas
-pakistan
 paleontologist
 paleontology
 palm
@@ -2797,7 +2740,6 @@ pendant
 pendulum
 penicillin
 pension
-pentagon
 peony
 people
 pepper
@@ -2811,10 +2753,8 @@ permafrost
 permission
 permit
 perp
-persian
 person
 personality
-peru
 pest
 pet
 petal
@@ -2824,7 +2764,6 @@ pharmacist
 pharmacopoeia
 phase
 pheasant
-philippines
 philosopher
 philosophy
 phone
@@ -2916,13 +2855,11 @@ poignance
 point
 poison
 poisoning
-poland
 pole
 polenta
 police
 policeman
 policy
-polish
 politician
 pollution
 polo
@@ -3218,8 +3155,6 @@ rod
 role
 roll
 roller
-romania
-romanian
 ronald
 roof
 room
@@ -3246,8 +3181,6 @@ rule
 run
 runaway
 runner
-russia
-russian
 rutabaga
 ruth
 sabre
@@ -3275,7 +3208,6 @@ sample
 samurai
 sand
 sandals
-sandbar
 sandra
 sandwich
 santa
@@ -3289,7 +3221,6 @@ satin
 satire
 saturday
 sauce
-saudi arabia
 sausage
 save
 saving
@@ -3434,7 +3365,6 @@ show-stopper
 shred
 shrimp
 shrine
-siamese
 siberian
 sibling
 sick
@@ -3554,9 +3484,6 @@ source
 sourwood
 sousaphone
 south
-south_africa
-south_america
-south_korea
 sow
 soy
 soybean
@@ -3564,7 +3491,6 @@ space
 spacing
 spade
 spaghetti
-spain
 spandex
 spank
 spark
@@ -3616,7 +3542,6 @@ squirrel
 stable
 stack
 stacking
-stadium
 staff
 stag
 stage
@@ -3723,7 +3648,6 @@ suburb
 subway
 success
 suck
-sudan
 suede
 suffocation
 sugar
@@ -3769,14 +3693,12 @@ sweats
 sweatshirt
 sweatshop
 sweatsuit
-swedish
 sweets
 swell
 swim
 swimming
 swimsuit
 swing
-swiss
 switch
 switchboard
 swivel
@@ -3786,7 +3708,6 @@ sycamore
 syndicate
 synergy
 synod
-syria
 syrup
 system
 tabby
@@ -3800,7 +3721,6 @@ tadpole
 tail
 tailor
 tailspin
-taiwan
 tale
 talk
 tam
@@ -3813,7 +3733,6 @@ tank
 tanker
 tankful
 tank-top
-tanzania
 tap
 target
 tassel
@@ -3862,7 +3781,6 @@ test
 text
 textbook
 texture
-thailand
 thanks
 thaw
 theater
@@ -4029,8 +3947,6 @@ tune-up
 tunic
 tunnel
 turban
-turkey
-turkish
 turn
 turnip
 turnover
@@ -4050,9 +3966,6 @@ two
 typewriter
 typhoon
 tyvek
-uganda
-ukraine
-ukrainian
 ukulele
 umbrella
 unblinking
@@ -4069,12 +3982,10 @@ unibody
 uniform
 union
 unit
-united kingdom
 urn
 use
 usher
 utensil
-uzbekistan
 vacation
 vacuum
 vagrant
@@ -4101,8 +4012,6 @@ veldt
 vellum
 velodrome
 velvet
-venezuela
-venezuelan
 venom
 veranda
 verdict
@@ -4118,7 +4027,6 @@ veterinarian
 vibe
 vibraphone
 vibration
-vietnam
 view
 villa
 village
@@ -4290,7 +4198,6 @@ yogurt
 yoke
 young
 youth
-yugoslavian
 yurt
 zampone
 zebra
@@ -4305,7 +4212,7 @@ zoo
 zoologist
 zoology
 zoot-suit
-zucchini`
+zucchini"`
 
 export const nouns = rawData.split("\n");
 export default nouns;
