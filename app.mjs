@@ -274,7 +274,6 @@ class Legislature {
       for (let issueNo = 0; issueNo < this.issueSelections; issueNo++) {
         myIssues.push(randomSelect(this.issues));
       }
-      myIssues = myIssues.concat(party.issues);
       let legislator = new Legislator(names[i % names.length], party, compass, myIssues);
       legislators.push(legislator);
       party.members.push(legislator);
