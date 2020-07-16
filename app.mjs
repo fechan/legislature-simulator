@@ -242,7 +242,7 @@ class Legislature {
     this.laws = [];
     this.sessions = 0;
     this.failed = () => this.sessions - this.laws.length;
-    this.percentPassed = () => this.sesions ? (this.laws.length / this.sessions) * 100 : 0;
+    this.percentPassed = () => this.sessions ? (this.laws.length / this.sessions) * 100 : 0;
   }
 
   /**
