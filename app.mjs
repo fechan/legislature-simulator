@@ -163,6 +163,21 @@ class Party extends PoliticalActor {
     this.color = color;
     this.members = [];
   }
+
+  /**
+   * Decides what the party line for a bill is
+   * Party decisions are deterministic
+   * @param {String}  billIssue   the issue the bill addreses
+   * @param {Point}   billCompass the compass of the bill
+   */
+  decide(billIssue, billCompass) {
+    if (!this.issues.includes(billIssue)) return "ABSTAIN";
+    if (this.compass.distanceTo(billCompass) > 7.5) {
+      return "AYE";
+    } else {
+      return "NAY";
+    }
+  }
 }
 
 /**
