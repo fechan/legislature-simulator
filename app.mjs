@@ -352,7 +352,14 @@ window.addEventListener("load", init);
 
 function init() {
   $("#intro-modal").modal("show");
-  document.addEventListener("submit", electLegislature);
+  document.getElementById("options").addEventListener("submit", event => {
+    electLegislature(event);
+    // the rest shows the placholders again. Doesn't work inside electLegislature for some reason
+    document.getElementById("party-placeholder").classList.remove("d-none");
+    document.getElementById("party-details").classList.add("d-none");
+    document.getElementById("legislator-placeholder").classList.remove("d-none");
+    document.getElementById("legislator-details").classList.add("d-none");
+  });
 }
 
 /**
@@ -373,6 +380,7 @@ function electLegislature(event) {
     options.get("parties"),
     options.get("issues")
   );
+
   updateSidebar(currentLegislature);
   updateChart(currentLegislature);
   
@@ -544,6 +552,9 @@ function setPopover(square, legislator) {
  * @param {Legislator} legislator legislator to show info about
  */
 function updateLegislatorInfo(legislator) {
+  document.getElementById("legislator-placeholder").classList.add("d-none");
+  document.getElementById("legislator-details").classList.remove("d-none");
+
   document.getElementById("legislator-name").textContent = legislator.name;
   let party = partyLink(legislator.party);
   party.id = "legislator-party";
@@ -560,6 +571,9 @@ function updateLegislatorInfo(legislator) {
  * @param {Party} party party to show info about
  */
 function updatePartyInfo(party) {
+  document.getElementById("party-placeholder").classList.add("d-none");
+  document.getElementById("party-details").classList.remove("d-none");
+
   document.getElementById("party-name").textContent = party.name;
   document.getElementById("party-name").style.color = party.color;
   document.getElementById("party-x").textContent = round(party.compass.x);

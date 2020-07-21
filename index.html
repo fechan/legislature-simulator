@@ -75,46 +75,56 @@
         </div>
         <!-- Party info -->
         <div id="party-view" class="tab-pane">
-          <p id="party-name">Select a party or a member of a party to view party details.</p>
-          <details open>
-            <summary>Issues the party cares about</summary>
-            <ul id="party-issues"></ul>
-          </details>
-          <details open>
-            <summary>Political compass</summary>
-            <p>
-              Economic: <span id="party-x">?</span> Social: <span id="party-y">?</span>
-            </p>
-          </details>
-          <details open>
-            <summary>Historical party lines</summary>
-            <ul id="party-lines"></ul>
-          </details>
+          <div class="text-center" id="party-placeholder">
+            <p>Select a party or a party member to view party details.</p>
+          </div>
+          <div class="d-none" id="party-details">
+            <p id="party-name">Select a party or a member of a party to view party details.</p>
+            <details open>
+              <summary>Issues the party cares about</summary>
+              <ul id="party-issues"></ul>
+            </details>
+            <details open>
+              <summary>Political compass</summary>
+              <p>
+                Economic: <span id="party-x">?</span> Social: <span id="party-y">?</span>
+              </p>
+            </details>
+            <details open>
+              <summary>Historical party lines</summary>
+              <ul id="party-lines"></ul>
+            </details>
+          </div>
         </div>
         <!-- Legislator info -->
         <div id="legislator-view" class="tab-pane">
-          <p>
-            <span id="legislator-name">Select a legislator to view their details.</span>
-            (<a id="legislator-party">Try it!</a>)
-          </p>
-          <details open>
-            <summary>Issues I care about</summary>
-            <ul id="legislator-issues"></ul>
-          </details>
-          <details open>
-            <summary>Political compass</summary>
+          <div class="text-center" id="legislator-placeholder">
+            <p>Select a legislator to view their details.</p>
+          </div>
+          <div class="d-none" id="legislator-details">
             <p>
-              Economic: <span id="legislator-x">?</span> Social: <span id="legislator-y">?</span>
+              <span id="legislator-name">Select a legislator to view their details.</span>
+              (<a id="legislator-party">Try it!</a>)
             </p>
-          </details>
-          <details open>
-            <summary>Bills introduced</summary>
-            <ul id="bills-introduced"></ul>
-          </details>
-          <details open>
-            <summary>Voting history</summary>
-            <ul id="vote-history"></ul>
-          </details>
+            <details open>
+              <summary>Issues I care about</summary>
+              <ul id="legislator-issues"></ul>
+            </details>
+            <details open>
+              <summary>Political compass</summary>
+              <p>
+                Economic: <span id="legislator-x">?</span> Social: <span id="legislator-y">?</span>
+              </p>
+            </details>
+            <details open>
+              <summary>Bills introduced</summary>
+              <ul id="bills-introduced"></ul>
+            </details>
+            <details open>
+              <summary>Voting history</summary>
+              <ul id="vote-history"></ul>
+            </details>
+          </div>
         </div>
       </div>
     </aside>
