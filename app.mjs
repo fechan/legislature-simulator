@@ -377,12 +377,12 @@ function electLegislature(event) {
   updateChart(currentLegislature);
   
   let nextBtn = document.getElementById("next");
-  nextBtn.addEventListener("click", async function(){
+  nextBtn.onclick = async function(){
     nextBtn.setAttribute("disabled", true);
     await showVotes(currentLegislature, currentLegislature.holdSession());
     updateSidebar(currentLegislature);
     nextBtn.removeAttribute("disabled");
-  });
+  };
 }
 
 /**

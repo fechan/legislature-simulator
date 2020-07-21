@@ -52,3 +52,10 @@ button {
 #party-list > a {
   margin: 0 .5rem;
 }
+
+#re-elect:hover {
+  text-decoration: none;
+  position: relative;
+  top: -1px;
+  text-shadow: rgba(0, 0, 0, .2) 0 1px 1px;
+}
