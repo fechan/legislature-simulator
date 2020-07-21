@@ -59,3 +59,7 @@ button {
   top: -1px;
   text-shadow: rgba(0, 0, 0, .2) 0 1px 1px;
 }
+
+#details-sidebar > .nav {
+  margin-bottom: 1rem;
+}
