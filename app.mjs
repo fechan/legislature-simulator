@@ -382,6 +382,8 @@ function electLegislature(event) {
   );
   viewingLegislator = null;
   viewingParty = null;
+  document.getElementById("current-bill").textContent = "No bills introduced yet";
+  ["aye", "nay", "abstain"].forEach(id => document.getElementById(id).textContent = "?");
 
   updateSidebar(currentLegislature);
   updateChart(currentLegislature);
