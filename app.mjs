@@ -380,6 +380,8 @@ function electLegislature(event) {
     options.get("parties"),
     options.get("issues")
   );
+  viewingLegislator = null;
+  viewingParty = null;
 
   updateSidebar(currentLegislature);
   updateChart(currentLegislature);
