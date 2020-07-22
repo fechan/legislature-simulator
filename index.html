@@ -42,6 +42,26 @@
               <input type="number" class="form-control" id="option-issues" name="issues" value="5" min="1">
               <small>Number of times a party or legislator should select issues.</small>
             </div>
+            <details>
+              <summary>Custom names and issues</summary>
+              <p class="small">
+                You can leave any of these blank to use the default lists of names and issues.
+                If there are more parties/legislators than there are names, the names will be
+                reused.
+              </p>
+              <div class="form-group">
+                <label for="option-legislatornames">Legislator names (one per line)</label>
+                <textarea class="form-control" id="option-legislatornames" name="legislatornames"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="option-legislatornames">Party names (one per line)</label>
+                <textarea class="form-control" id="option-partynames" name="partynames"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="option-issuenames">Issues (one per line)</label>
+                <textarea class="form-control" id="option-issuenames" name="issuenames"></textarea>
+              </div>
+            </details>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         </div>

@@ -260,7 +260,7 @@ class Legislature {
         partyIssues.push(randomSelect(this.issues));
       }
       parties.push(new Party(
-        titleCase(names[i % names.length] + " Party"),
+        names[i % names.length],
         colors[i % colors.length],
         randomCompass(10),
         partyIssues
@@ -372,10 +372,10 @@ function electLegislature(event) {
   let form = document.getElementById("options");
   let options = new FormData(form);
   let currentLegislature = new Legislature(
-    names,
-    nouns,
+    options.get("legislatornames") ? options.get("legislatornames").split("\n") : names,
+    options.get("partynames") ? options.get("partynames").split("\n") : nouns.map(noun => titleCase(noun + " Party")),
     ["red", "green", "blue", "orange", "purple"],
-    shuffle(nouns).slice(0, options.get("issues")),
+    options.get("issuenames") ? options.get("issuenames").split("\n") : shuffle(nouns).slice(0, options.get("issues")),
     options.get("size"),
     options.get("parties"),
     options.get("issues")
