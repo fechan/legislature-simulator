@@ -357,6 +357,11 @@ class AchievementTracker {
         condition: (legislature, voteResult) => legislature && legislature.size === 1,
         title: "The Great Dictator",
         text: "Have only one legislator in the legislature"
+      },
+      {
+        condition: (legislature, voteResult) => Boolean(voteResult),
+        title: "Queen's Speech",
+        text: "Hold your first legislature session"
       }
     ];
     this.achieved = [];
@@ -377,7 +382,7 @@ class AchievementTracker {
         this.achieved.push(achievement);
       }
     }
-    functionsToDelete.forEach(index => this.unachieved.splice(index));
+    functionsToDelete.forEach(index => this.unachieved.splice(index, 1));
   }
 }
 
@@ -434,7 +439,9 @@ function electLegislature(event) {
   let nextBtn = document.getElementById("next");
   nextBtn.onclick = async function(){
     nextBtn.setAttribute("disabled", true);
-    await showVotes(currentLegislature, currentLegislature.holdSession());
+    let voteResult = currentLegislature.holdSession();
+    achievements.checkAchieved(currentLegislature, voteResult);
+    await showVotes(currentLegislature, voteResult);
     updateSidebar(currentLegislature);
     nextBtn.removeAttribute("disabled");
   };
@@ -462,14 +469,14 @@ function updateSidebar(legislature) {
   document.getElementById("legislature-failed").textContent = legislature.failed();
   
   document.getElementById("achievements-earned").textContent = achievements.achieved.length;
-  let achivementsList = document.getElementById("achievements-list");
-  achivementsList.innerHTML = "";
+  let achievementsList = document.getElementById("achievements-list");
+  achievementsList.innerHTML = "";
   for (let achivement of achievements.achieved) {
     let title = document.createElement("dt");
     title.textContent = achivement.title;
     let text = document.createElement("dd");
     text.textContent = achivement.text;
-    achivementsList.append(title, text);
+    achievementsList.append(title, text);
   }
 }
 
