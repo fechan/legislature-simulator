@@ -376,9 +376,9 @@ function electLegislature(event) {
     options.get("partynames") ? options.get("partynames").split("\n") : nouns.map(noun => titleCase(noun + " Party")),
     ["red", "green", "blue", "orange", "purple"],
     options.get("issuenames") ? options.get("issuenames").split("\n") : shuffle(nouns).slice(0, options.get("issues")),
-    options.get("size"),
-    options.get("parties"),
-    options.get("issues")
+    parseInt(options.get("size")),
+    parseInt(options.get("parties")),
+    parseInt(options.get("issues"))
   );
   viewingLegislator = null;
   viewingParty = null;
