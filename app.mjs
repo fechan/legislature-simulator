@@ -401,6 +401,7 @@ function init() {
     document.getElementById("legislator-details").classList.add("d-none");
   });
   achievements = new AchievementTracker();
+  document.getElementById("achievements-total").textContent = achievements.unachieved.length;
 }
 
 /**
@@ -426,6 +427,7 @@ function electLegislature(event) {
   document.getElementById("current-bill").textContent = "No bills introduced yet";
   ["aye", "nay", "abstain"].forEach(id => document.getElementById(id).textContent = "?");
 
+  achievements.checkAchieved(currentLegislature);
   updateSidebar(currentLegislature);
   updateChart(currentLegislature);
   
@@ -458,6 +460,17 @@ function updateSidebar(legislature) {
   document.getElementById("legislature-passed").textContent = legislature.laws.length;
   document.getElementById("legislature-passpercent").textContent = round(legislature.percentPassed()) + "%";
   document.getElementById("legislature-failed").textContent = legislature.failed();
+  
+  document.getElementById("achievements-earned").textContent = achievements.achieved.length;
+  let achivementsList = document.getElementById("achievements-list");
+  achivementsList.innerHTML = "";
+  for (let achivement of achievements.achieved) {
+    let title = document.createElement("dt");
+    title.textContent = achivement.title;
+    let text = document.createElement("dd");
+    text.textContent = achivement.text;
+    achivementsList.append(title, text);
+  }
 }
 
 /**
