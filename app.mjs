@@ -362,6 +362,16 @@ class AchievementTracker {
         condition: (legislature, voteResult) => Boolean(voteResult),
         title: "Queen's Speech",
         text: "Hold your first legislature session"
+      },
+      {
+        condition: (legislature, voteResult) => legislature && legislature.size === 3000,
+        title: "National People's Congress",
+        text: "Have 3000 legislators in the legislature"
+      },
+      {
+        condition: (legislature, voteResult) => legislature && legislature.parties.length === 1,
+        title: "Second world problems",
+        text: "Have only one party that legislators can join"
       }
     ];
     this.achieved = [];
@@ -374,15 +384,14 @@ class AchievementTracker {
    * @param {Object}      voteResult  vote result to check
    */
   checkAchieved(legislature, voteResult) {
-    let functionsToDelete = [];
-    for (let i = 0; i < this.unachieved.length; i++) {
-      let achievement = this.unachieved[i];
+    let toDelete = [];
+    for (let achievement of this.unachieved) {
       if (achievement.condition(legislature, voteResult)) {
-        functionsToDelete.push(i);
+        toDelete.push(achievement);
         this.achieved.push(achievement);
       }
     }
-    functionsToDelete.forEach(index => this.unachieved.splice(index, 1));
+    toDelete.forEach(f => this.unachieved.splice(this.unachieved.indexOf(f), 1));
   }
 }
 
