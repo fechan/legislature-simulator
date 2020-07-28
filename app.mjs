@@ -343,10 +343,50 @@ class Legislature {
 }
 
 /**
- * GLOBAL VARIABLES FOR THE VIEW
+ * Keeps track of achived and unachived achievements that are earned when Legislatures and session
+ * vote results meet certain 
+ */
+class AchievementTracker {
+
+  /**
+   * Construct a new AchivementTracker, with no achievements achived
+   */
+  constructor() {
+    this.unachieved = [
+      {
+        condition: (legislature, voteResult) => legislature && legislature.size === 1,
+        title: "The Great Dictator",
+        text: "Have only one legislator in the legislature"
+      }
+    ];
+    this.achieved = [];
+  }
+
+  /**
+   * Check if a legislature and/or vote result satisfies any achievements. If they do, those
+   * achievements are moved from the unachieved array to the achieved array
+   * @param {Legislature} legislature legislature to check
+   * @param {Object}      voteResult  vote result to check
+   */
+  checkAchieved(legislature, voteResult) {
+    let functionsToDelete = [];
+    for (let i = 0; i < this.unachieved.length; i++) {
+      let achievement = this.unachieved[i];
+      if (achievement.condition(legislature, voteResult)) {
+        functionsToDelete.push(i);
+        this.achieved.push(achievement);
+      }
+    }
+    functionsToDelete.forEach(index => this.unachieved.splice(index));
+  }
+}
+
+/**
+ * GLOBAL VARIABLES FOR THE VIEW AND ACHIEVEMENT TRACKING
  */
 let viewingLegislator;
 let viewingParty;
+let achievements;
 
 window.addEventListener("load", init);
 
@@ -360,6 +400,7 @@ function init() {
     document.getElementById("legislator-placeholder").classList.remove("d-none");
     document.getElementById("legislator-details").classList.add("d-none");
   });
+  achievements = new AchievementTracker();
 }
 
 /**
