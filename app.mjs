@@ -372,7 +372,22 @@ class AchievementTracker {
         condition: (legislature, voteResult) => legislature && legislature.parties.length === 1,
         title: "Second world problems",
         text: "Have only one party that legislators can join"
-      }
+      },
+      {
+        condition: (legislature, voteResult) => voteResult && voteResult.aye === ++voteResult.nay,
+        title: "Slim majority",
+        text: "Have a bill pass by one vote"
+      },
+      {
+        condition: (legislature, voteResult) => voteResult && !voteResult.passed && voteResult.aye === voteResult.nay,
+        title: "Glass half empty",
+        text: "Have a bill fail due to a tie"
+      },
+      {
+        condition: (legislature, voteResult) => voteResult && voteResult.passed,
+        title: "An Act to regulate the Time and Manner of administering certain Oaths",
+        text: "Pass a bill"
+      },
     ];
     this.achieved = [];
   }
